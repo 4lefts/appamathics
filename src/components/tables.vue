@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="app-header">
+    <header>
       <div class="container">
         <h1>Tables Challenge</h1>
       </div>
@@ -112,7 +112,7 @@ export default {
 
   }
   @media print{
-    .app-header, .about-info, .chooser-container{
+    .about-info, .chooser-container{
       display: none;
     }
   }

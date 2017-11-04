@@ -129,6 +129,12 @@ header{
     border-bottom: 1px solid $primary;
 }
 
+@media print{
+    header{
+        display: none;
+    }
+}
+
 .about-info{
     @include card(1);
     @include container();
@@ -136,10 +142,18 @@ header{
     padding: $gutter;
 }
   
-  .slide-enter-active, .slide-leave-active {
+.slide-enter-active, .slide-leave-active {
     transition: all .5s;
-  }
-  .slide-enter, .slide-leave-to {
+}
+.slide-enter, .slide-leave-to {
     transform: translateX(100%);
     opacity: 0;
-  }
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: all .5s;
+}
+.fade-enter, .fade-leave-to {
+    // transform: translateX(100%);
+    opacity: 0;
+}
