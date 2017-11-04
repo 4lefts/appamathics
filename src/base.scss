@@ -1,0 +1,145 @@
+/* CSS Mini Reset */
+/* from http://www.vcarrer.com/2010/05/css-mini-reset.html */
+
+html, body, div, form, fieldset, legend, label
+{
+    margin: 0;
+    padding: 0; 
+}
+
+table
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th, td
+{
+    text-align: left;
+    vertical-align: top;
+}
+
+h1, h2, h3, h4, h5, h6, th, td, caption { font-weight:normal; }
+
+img { border: 0; }
+
+/* end reset */
+
+// variables
+$gutter: 20px;
+$containerWidth: 640px;
+// palette
+$background: #eff8fc;
+$primary: #1875d1;
+$light: #63a3ff;
+$dark: #004a9f;
+$text: rgba(0, 0, 0, 0.875);
+
+//material-style shadows
+//from https://css-tricks.com/snippets/sass/material-shadows-mixin/
+//$depth takes a number 1 - 5 for the depth
+@mixin card($depth, $colour: white){
+    background-color: $colour;
+	@if $depth < 1{
+		box-shadow: none;
+	} @else if $depth > 5{
+		@warn "invalid $depth for mixin 'card'";
+	} @else {
+		box-shadow: bottom-shadow($depth), top-shadow($depth);
+	}
+}
+
+//use these two functions in mixin above
+@function top-shadow($depth){
+	$primary-offset: nth(1.5 3 10 14 19, $depth) * 1px;
+	$blur: nth(1.5 3 10 14 19, $depth) * 4px;
+	$color: rgba(black, nth(.12 .16 .19 .25 .30, $depth));
+
+	@return 0 $primary-offset $blur $color;
+}
+
+@function bottom-shadow($depth){
+	$primary-offset: nth(1.5 3 6 10 15, $depth) * 1px;
+	$blur: nth(1.5 3 3 5 6, $depth) * 4px;
+	$color: rgba(black, nth(.24 .23 .23 .22 .22, $depth));
+
+	@return 0 $primary-offset $blur $color;
+}
+
+@mixin icon-button($size: 50px, $colour: $primary){
+    border: none;
+    @include card(1, $colour);
+    margin: 0;
+    padding: 0;
+    width: $size;
+    height: $size;
+    font-size: 1.1em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: $colour;
+    color: white;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+    transition: all 0.5s ease;
+    &:focus, &:hover{
+        outline: none;
+        @include card(3, $light);
+    }
+}
+
+@mixin container($w: $containerWidth){
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: $w;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lora|Open+Sans');
+body{
+    font-size: 20px;
+    // font-family: 'Lora', serif;
+    font-family: 'Open Sans', sans-serif;
+    background-color: $background;
+}
+
+#app{
+    overflow: hidden;
+}
+
+header{
+    box-sizing: border-box;
+    @include card(2);
+    background-color: white;
+    padding: $gutter;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h1, h5{
+        margin: 0;
+    }
+    h5{
+        margin-top: 0.4em;
+    }
+    button, a{
+        @include icon-button();
+    }
+    border-bottom: 1px solid $primary;
+}
+
+.about-info{
+    @include card(1);
+    @include container();
+    margin-top: $gutter;
+    padding: $gutter;
+}
+  
+  .slide-enter-active, .slide-leave-active {
+    transition: all .5s;
+  }
+  .slide-enter, .slide-leave-to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
