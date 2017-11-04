@@ -84,9 +84,10 @@ $text: rgba(0, 0, 0, 0.875);
     -webkit-font-smoothing: inherit;
     -moz-osx-font-smoothing: inherit;
     -webkit-appearance: none;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
     &:focus, &:hover{
         outline: none;
+        transform: scale(1.1);
         @include card(3, $light);
     }
 }

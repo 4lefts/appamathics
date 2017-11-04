@@ -134,7 +134,7 @@ export default {
     width: 24%;
     border-radius: 2px;
     @include card(1);
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     h3{
       margin: 0;
       box-sizing: border-box;

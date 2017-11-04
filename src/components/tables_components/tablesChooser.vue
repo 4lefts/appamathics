@@ -50,8 +50,9 @@ export default {
                 background-color: #ffffff;
                 color: $light;
                 border-radius: 50%;
-                transition: all ease 0.2s;
+                transition: all 0.3s ease;
                 &:hover{
+                    transform: scale(1.05);
                     cursor: pointer;
                     @include card(3);
                 }
