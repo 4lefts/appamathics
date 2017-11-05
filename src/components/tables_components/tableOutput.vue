@@ -44,7 +44,7 @@ export default {
         .sheet-container{
             @include card(1);
             @include container();
-            margin-top: $gutter;
+            margin: $gutter auto;
             box-sizing: border-box;
             padding: $gutter;
             background-color: #ffffff;

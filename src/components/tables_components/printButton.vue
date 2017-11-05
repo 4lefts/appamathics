@@ -1,5 +1,5 @@
 <template>
-    <div class="button-container">
+    <div class="print-button-container">
         <button class="print-button" v-on:click.prevent="printSheet"><img src="../../assets/icons/print.svg" alt="print button"></button>
     </div>
 </template>
@@ -16,16 +16,16 @@ export default {
 
 <style lang="scss">
     @import '../../base.scss';
-    .button-container{
+    .print-button-container{
         width: 100%;
         display: flex;
         justify-content: flex-end;
         .print-button{
-            @include icon-button();
+            @include icon-button(50px, $accent);
         }
     }
     @media print {
-       .button-container{
+       .print-button-container{
             display: none;
        } 
     }

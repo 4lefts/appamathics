@@ -33,7 +33,11 @@ $background: #eff8fc;
 $primary: #1875d1;
 $light: #63a3ff;
 $dark: #004a9f;
+$accent: #ff0092;
+$accent-light: #ff40ad;
 $text: rgba(0, 0, 0, 0.875);
+$text-secondary: rgba(0, 0, 0, 0.6);
+
 
 //material-style shadows
 //from https://css-tricks.com/snippets/sass/material-shadows-mixin/
@@ -68,6 +72,7 @@ $text: rgba(0, 0, 0, 0.875);
 
 @mixin icon-button($size: 50px, $colour: $primary){
     border: none;
+    position: relative;
     @include card(1, $colour);
     margin: 0;
     padding: 0;
@@ -75,6 +80,63 @@ $text: rgba(0, 0, 0, 0.875);
     height: $size;
     font-size: 1.1em;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+    transition: all 0.3s ease;
+    &:focus, &:hover{
+        outline: none;
+        transform: scale(1.1);
+        @include card(3, $colour);
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, .5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
+    }
+}
+
+@keyframes ripple {
+    0% {
+      transform: scale(0, 0);
+      opacity: 1;
+    }
+    20% {
+      transform: scale(25, 25);
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(40, 40);
+    }
+}
+  
+button:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@mixin text-button($size: 50px, $colour: $primary){
+    border: none;
+    @include card(1, $colour);
+    margin: 0;
+    padding: 0;
+    min-width: 150px;
+    height: $size;
+    font-size: 1.1em;
+    border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,7 +149,7 @@ $text: rgba(0, 0, 0, 0.875);
     transition: all 0.3s ease;
     &:focus, &:hover{
         outline: none;
-        transform: scale(1.1);
+        // transform: scale(1.1);
         @include card(3, $light);
     }
 }
@@ -136,6 +198,52 @@ header{
     }
 }
 
+.button-group{
+    display: flex;
+    align-items: center;
+    button{
+        margin-right: $gutter;
+    }
+}
+
+input{
+    display: block;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    width: 400px;
+    padding: 5px;
+    padding-left: 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid lighten($text, 70%);
+    font-size: 1.2em;
+    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+      color: #777777;
+    }
+    &::-moz-placeholder { /* Firefox 19+ */
+      color: #777777;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+      color: #777777;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+      color: #777777;
+    }
+    &:focus{
+      outline: none;
+      border-bottom: 1.5px solid $primary;
+      color: $primary;
+    }
+}
+
+label{
+    margin-top: $gutter;
+    color: $text-secondary;
+    font-size: 0.7em;
+    padding: 5px;
+    padding-left: 0;
+}
+
 .about-info{
     @include card(1);
     @include container();
@@ -152,7 +260,7 @@ header{
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: all .5s;
+    transition: all .2s;
 }
 .fade-enter, .fade-leave-to {
     // transform: translateX(100%);

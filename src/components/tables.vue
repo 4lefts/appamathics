@@ -103,14 +103,6 @@ export default {
 
 <style lang="scss">
   @import '../base.scss';
-  .button-group{
-    display: flex;
-    align-items: center;
-    button{
-      margin-right: $gutter;
-    }
-
-  }
   @media print{
     .about-info, .chooser-container{
       display: none;

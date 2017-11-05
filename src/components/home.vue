@@ -93,31 +93,7 @@ export default {
     position: absolute;
   }
   #search{
-    box-sizing: border-box;
-    font-family: 'Lora', serif;
-    width: 400px;
-    padding: 5px 10px 5px 48px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid lighten($text, 70%);
-    font-size: 1.2em;
-    transition: all 0.4s linear;
-    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: #777777;
-    }
-    &::-moz-placeholder { /* Firefox 19+ */
-      color: #777777;
-    }
-    &:-ms-input-placeholder { /* IE 10+ */
-      color: #777777;
-    }
-    &:-moz-placeholder { /* Firefox 18- */
-      color: #777777;
-    }
-    &:focus{
-      outline: none;
-      border-bottom: 1px solid $text;
-    }
+    padding-left: 48px;
   }
 }
 
@@ -127,11 +103,11 @@ export default {
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   .app-card{
     box-sizing: border-box;
     margin: $gutter 0;
-    width: 24%;
+    width: 23%;
     border-radius: 2px;
     @include card(1);
     transition: all 0.3s ease;
