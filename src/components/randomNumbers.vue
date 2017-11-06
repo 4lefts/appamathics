@@ -18,30 +18,23 @@
         </header>
         <transition name="slide">
             <div v-if="showAbout" class="about-info">
-                <h2>Random Number Generator</h2>
+                <h3>Random Number Generator</h3>
                 <p>Useful for all kinds of things. Ordering, sorting, comparison, quick starter activities, practising column addition, subtraction, long or short multiplication.</p>
             </div>
         </transition>
         <transition name="slide">
-            <div class="numberSettings" v-if="showSettings">
-                <h3>Settings</h3>
-                <label for="lowerBound">Between...</label>
+            <div class="settings" v-if="showSettings">
+                <h3>Choose Numbers</h3>
+                <label for="numberOne">Between...</label>
                 <input 
                 type="number"
-                name="lowerBound"
-                v-model.number="lowerBound">
-                <label for="upperBound">...and...</label>
+                name="numberOne"
+                v-model.number="numberOne">
+                <label for="numberTwo">...and...</label>
                 <input 
                 type="number" 
-                name="upperBound" 
-                v-model.number="upperBound">
-                <label for="numberOfNumbers">Number of Numbers:</label>
-                <input 
-                type="number" 
-                name="numberOfNumbers" 
-                min="1" 
-                max="10" 
-                v-model.number="numberOfNumbers">
+                name="numberTwo" 
+                v-model.number="numberTwo">
                 <label for="decimalPlaces">Decimal Places:</label>
                 <input 
                 type="number" 
@@ -49,7 +42,14 @@
                 min="0" 
                 max="6"
                 v-model.number="decimalPlaces">
-                <p>(Choosing {{numberOfNumbers}} numbers between {{this.bounds.lower}} and {{this.bounds.upper}}.)</p>
+                <label for="numberOfNumbers">Number of Numbers:</label>
+                <input 
+                type="number" 
+                name="numberOfNumbers" 
+                min="1" 
+                max="10" 
+                v-model.number="numberOfNumbers">
+                <p>(Choosing {{numberOfNumbers}} numbers between {{this.bounds.lower}} and {{this.bounds.upper}}, to {{decimalPlaces}} decimal places.)</p>
             </div>
         </transition>
         
@@ -68,8 +68,8 @@ export default {
         return {
             showSettings: false,
             showAbout: false,
-            upperBound: 100,
-            lowerBound: 20,
+            numberTwo: 100,
+            numberOne: 20,
             decimalPlaces: 0,
             numberOfNumbers: 3,
             randomNumbers: [],
@@ -102,20 +102,20 @@ export default {
     },
     computed: {
         bounds: function(){
-            if(this.upperBound > this.lowerBound){
+            if(this.numberTwo > this.numberOne){
                 return {
-                    lower: this.lowerBound,
-                    upper: this.upperBound
+                    lower: this.numberOne,
+                    upper: this.numberTwo
                 }
-            } else if(this.upperBound < this.lowerBound){
+            } else if(this.numberTwo < this.numberOne){
                 return {
-                    lower: this.upperBound,
-                    upper: this.lowerBound
+                    lower: this.numberTwo,
+                    upper: this.numberOne
                 }
             } else {
                 return {
-                    lower: this.lowerBound,
-                    upper: this.lowerBound + 1
+                    lower: this.numberOne,
+                    upper: this.numberOne + 1
                 }
             }
         }
@@ -128,28 +128,6 @@ export default {
 
 <style lang="scss">
     @import '../base.scss';
-    .numberSettings{
-        @include card(1);
-        @include container();
-        margin: $gutter auto;
-        box-sizing: border-box;
-        padding: $gutter;
-        background-color: #ffffff;
-        p{
-            margin-bottom: 0;
-        }
-        h3{
-            margin-top: 0.3em;
-            margin-bottom: 0.15em; 
-        }
-    }
-
-    input{
-        margin-bottom: 20px;
-        &:last-child{
-            margin-bottom: 0;
-        }
-    }
 
     .go-button{
         @include icon-button(75px);

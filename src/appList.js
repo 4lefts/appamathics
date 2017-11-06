@@ -3,26 +3,9 @@ import testApp2 from './components/testApp2.vue'
 import testApp3 from './components/testApp3.vue'
 import tables from './components/tables.vue'
 import randomNumbers from './components/randomNumbers.vue'
+import timer from './components/timer.vue'
 
 const appList = [
-    // {
-    //     name: 'Some Test App',
-    //     description: 'a test app, innit',
-    //     path: '/testApp1',
-    //     component: testApp1
-    // },
-    // {
-    //     name: 'A Different App',
-    //     description: 'a test app, as well',
-    //     path: '/testApp2',
-    //     component: testApp2
-    // },
-    // {
-    //     name: 'Another App',
-    //     description: 'still a test app',
-    //     path: '/testApp3',
-    //     component: testApp3
-    // },
     {
         name: 'Times Tables',
         description: 'Make times tables challenge sheets',
@@ -34,6 +17,12 @@ const appList = [
         description: 'Generate random numbers for all kinds of maths activities',
         path: '/random-numbers',
         component: randomNumbers
+    },
+    {
+        name: 'Timer',
+        description: 'A countdown timer',
+        path: '/timer',
+        component: timer
     }
 ]
 

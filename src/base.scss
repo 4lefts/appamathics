@@ -85,6 +85,7 @@ $text-secondary: rgba(0, 0, 0, 0.6);
     justify-content: center;
     overflow: hidden;
     color: white;
+    cursor: pointer;
     -webkit-font-smoothing: inherit;
     -moz-osx-font-smoothing: inherit;
     -webkit-appearance: none;
@@ -244,11 +245,42 @@ label{
     padding-left: 0;
 }
 
+.settings{
+    @include card(1);
+    @include container();
+    margin: $gutter auto;
+    box-sizing: border-box;
+    padding: $gutter;
+    background-color: #ffffff;
+    p{
+        margin-bottom: 0;
+        font-size: 0.7em;
+        color: $text-secondary;
+    }
+    h3{
+        margin-top: 0.3em;
+        margin-bottom: 0.15em; 
+    }
+    input{
+        margin-bottom: 20px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}
+
 .about-info{
     @include card(1);
     @include container();
     margin-top: $gutter;
     padding: $gutter;
+    p{
+        margin-bottom: 0;
+    }
+    h3{
+        margin-top: 0.3em;
+        margin-bottom: 0.15em; 
+    }
 }
   
 .slide-enter-active, .slide-leave-active {
