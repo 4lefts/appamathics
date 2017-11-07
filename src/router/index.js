@@ -10,6 +10,7 @@ let routes = appList.map(appInfo => {
     component: appInfo.component
   }
 })
+
 routes.push(
   {
     path: '/',
@@ -18,8 +19,14 @@ routes.push(
   }
 )
 
-console.log(routes)
+routes.push(
+  {
+    path: '*',
+    redirect: '/'
+  }
+)
 
+console.log(routes)
 
 Vue.use(Router)
 export default new Router({
