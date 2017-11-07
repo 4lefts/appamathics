@@ -44,7 +44,7 @@
             <button 
             v-on:click="go"
             v-if="!isRunning" 
-            class="go-button">Go</button>
+            class="start-button">Go</button>
             <button 
             v-on:click="stop"
             v-else 
@@ -130,9 +130,12 @@ export default {
     #countdown{
         font-size: 30vmin;
         text-align: center;
-        color: $text-secondary;
+        @include text-card(2);
+        color: $light;
+        transition: all .2s ease;
         &.running{
             color: $text;
+            @include text-card(5);
         }
     }
     .control-buttons{
@@ -140,7 +143,7 @@ export default {
         display: flex;
         justify-content: center;
     }
-    .go-button, .reset-button{
+    .start-button, .reset-button{
         @include icon-button(100px);
         @include card(2, $primary);
         &:hover, &:focus{

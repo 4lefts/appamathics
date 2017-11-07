@@ -53,6 +53,16 @@ $text-secondary: rgba(0, 0, 0, 0.6);
 	}
 }
 
+@mixin text-card($depth){
+    @if $depth < 1{
+		text-shadow: none;
+	} @else if $depth > 5{
+		@warn "invalid $depth for mixin 'card'";
+	} @else {
+		text-shadow: bottom-shadow($depth), top-shadow($depth);
+	}
+}
+
 //use these two functions in mixin above
 @function top-shadow($depth){
 	$primary-offset: nth(1.5 3 10 14 19, $depth) * 1px;
