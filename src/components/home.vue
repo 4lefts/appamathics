@@ -14,7 +14,7 @@
     <transition name="slide">
       <div v-if="showAbout" class="about-info">
         <h2>Simple Apps for Classrooms</h2>
-        <p>Appamathics is a growing collection of web apps that are hopefully useful in primary school classrooms. They are not designed to fit a specific purpose; they're just things that I've found useful, or people I know have found useful. Each one has a help page that tries to suggest some possible uses for the app. If you have ideas for apps you'd like to see here, or ways the apps or the site could be improved, please get in touch.</p>
+        <p>Appamathics is a growing collection of web apps that are hopefully useful in primary school classrooms. They are not designed to fit a specific purpose; they're just things that I've found useful. Each one has a help page that tries to suggest some possible uses for the app. If you have ideas for apps you'd like to see here, or ways the apps or the site could be improved, please get in touch.</p>
         <p>Thanks,<br>Stephen Ball,<br>{{getDate}}</p>
       </div>
     </transition>

@@ -36,15 +36,23 @@
         <transition name="slide">
             <div v-if="showAbout" class="about-info">
                 <h2>A One-Minute Timer</h2>
-                <p>"If you can fill the unforgiving minute<br>With sixty seconds worth of distance run,<br>Yours is the Earth and everything that’s in it..."</p>
+                <p><em>"If you can fill the unforgiving minute<br>With sixty seconds worth of distance run,<br>Yours is the Earth and everything that’s in it..."</em></p>
             </div>
         </transition>
-        <div>{{time}}</div>   
-        <div id="countdown">{{countdown | parseTime}}</div>
-        <button v-on:click="isRunning = !isRunning" class="go-button">
-            <span v-if="isRunning">Stop</span>
-            <span v-else>Go</span>
-        </button>
+        <div id="countdown" v-bind:class="{running: isRunning}">{{countdown | parseTime}}</div>
+        <div class="control-buttons">
+            <button 
+            v-on:click="go"
+            v-if="!isRunning" 
+            class="go-button">Go</button>
+            <button 
+            v-on:click="stop"
+            v-else 
+            class="stop-button">Pause</button>
+            <button 
+            v-on:click="reset"
+            class="reset-button">Reset</button>
+       </div>
   </div>
 </template>
 
@@ -54,31 +62,48 @@ export default {
        return {
             showSettings: false,
             showAbout: false,
-            minutesInput: 0,
-            secondsInput: 5,
+            minutesInput: 1,
+            secondsInput: 0,
             isRunning: false,
             countdown: 0,
         }
     },
     methods: {
         go: function(){
-            this.countdown = this.time
-            setInterval(_ => {
+            this.isRunning = true
+            console.log(this.countdown)
+            const i = setInterval(() => {
                 if(this.isRunning){
                     if(this.countdown > 0){
                         this.countdown--
                     } else {
-                        this.isRunning = false
-                        //wait here!
-                        setTimeout(_ => {
-                            this.countdown = this.time
-                        }, 1000)
+                        setTimeout(() => {
+                            this.isRunning = false
+                            this.countdown = this.initialSeconds
+                        }, 2000)
                     }
+                } else {
+                    clearInterval(i)
                 }
-            }, 1000)
+            } , 1000)
+        },
+        stop: function(){
+            this.isRunning = false
+        },
+        reset: function(){
+            this.countdown = this.initialSeconds
+        }
+    },
+    watch:{
+        minutesInput: function(){
+            this.countdown = this.initialSeconds
+        },
+        secondsInput: function(){
+            this.countdown = this.initialSeconds
         }
     },
     filters: {
+        //convert seconds (number) into mm:ss string
         parseTime: function(t){
             const m = Math.floor(t/60)
             const s = t % 60
@@ -88,12 +113,14 @@ export default {
         }
     },
     computed: {
-        time: function(){
+        initialSeconds: function(){
             return (this.minutesInput * 60) + this.secondsInput
-        }
+        },
     },
     created: function(){
-        this.go()
+        this.countdown = this.initialSeconds
+        console.log(this.countdown)
+        console.log(typeof(this.countdown))
     }
 }
 </script>
@@ -103,14 +130,33 @@ export default {
     #countdown{
         font-size: 30vmin;
         text-align: center;
+        color: $text-secondary;
+        &.running{
+            color: $text;
+        }
     }
-    .go-button{
-        @include icon-button(75px);
-        @include card(2, $accent);
+    .control-buttons{
         margin: $gutter auto $gutter*2 auto;
+        display: flex;
+        justify-content: center;
+    }
+    .go-button, .reset-button{
+        @include icon-button(100px);
+        @include card(2, $primary);
+        &:hover, &:focus{
+            transform: scale(1);
+            @include card(4, $primary);
+        }
+    }
+    .stop-button{
+        @include icon-button(100px);
+        @include card(2, $accent);
         &:hover, &:focus{
             transform: scale(1);
             @include card(4, $accent);
         }
+    }
+    .reset-button{
+        margin-left: $gutter*5;   
     }
 </style>
