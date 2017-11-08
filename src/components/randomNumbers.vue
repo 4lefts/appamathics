@@ -130,7 +130,7 @@ export default {
     @import '../base.scss';
 
     .go-button{
-        @include icon-button(75px);
+        @include icon-button(100px);
         @include card(2, $accent);
         margin: $gutter auto $gutter*2 auto;
         &:hover, &:focus{

@@ -125,6 +125,10 @@ export default {
     a{
       text-decoration: none;
       color: $text;
+      &:focus{
+        outline: none;
+        color: $primary;
+      }
     }
     &:hover{
       @include card(3);

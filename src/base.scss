@@ -105,6 +105,9 @@ $text-secondary: rgba(0, 0, 0, 0.6);
         transform: scale(1.1);
         @include card(3, $colour);
     }
+    &::-moz-focus-inner{
+        border: 0;
+    }
     &:after {
         content: '';
         position: absolute;
