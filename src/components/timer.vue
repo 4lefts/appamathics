@@ -16,29 +16,31 @@
                 </button>
             </div>
         </header>
-        <transition name="slide">
-            <div class="settings" v-if="showSettings">
-                <h3>Timer Length</h3>
-                <label for="minutes-input">Minutes</label>
-                <input 
-                type="number"
-                name="minutes-input"
-                v-model.number="minutesInput" 
-                min="0" max="60" value="0">
-                <label for="seconds-input">Seconds</label>
-                <input 
-                type="number" 
-                name="seconds-input" 
-                v-model.number="secondsInput"
-                min="0" max="59" value="5">
-            </div>
-        </transition>
-        <transition name="slide">
-            <div v-if="showAbout" class="about-info">
-                <h2>A One-Minute Timer</h2>
-                <p><em>"If you can fill the unforgiving minute<br>With sixty seconds worth of distance run,<br>Yours is the Earth and everything that’s in it..."</em></p>
-            </div>
-        </transition>
+        <div class="info-boxes-container">
+            <transition name="slide">
+                <div class="settings" v-if="showSettings">
+                    <h3>Timer Length</h3>
+                    <label for="minutes-input">Minutes</label>
+                    <input 
+                    type="number"
+                    name="minutes-input"
+                    v-model.number="minutesInput" 
+                    min="0" max="60" value="0">
+                    <label for="seconds-input">Seconds</label>
+                    <input 
+                    type="number" 
+                    name="seconds-input" 
+                    v-model.number="secondsInput"
+                    min="0" max="59" value="5">
+                </div>
+            </transition>
+            <transition name="slide">
+                <div v-if="showAbout" class="about-info">
+                    <h3>A One-Minute Timer</h3>
+                    <p><em>"If you can fill the unforgiving minute<br>With sixty seconds worth of distance run,<br>Yours is the Earth and everything that’s in it..."</em></p>
+                </div>
+            </transition>
+        </div>
         <div id="countdown" v-bind:class="{running: isRunning}">{{countdown | parseTime}}</div>
         <div class="control-buttons">
             <button 

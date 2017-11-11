@@ -16,19 +16,21 @@
         </button>
       </div>
     </header>
-    <transition name="slide">
-      <div v-if="showAbout" class="about-info">
-        <h3>Generate Times Tables Practise Sheets</h3>
-        <p>Use the settings section to select the times tables you want students to practise and click print to generate a printable worksheet. We normally set a 5 minute timer and see how many each person can do, then they can record this score (or the their time, or both) to try to improve on it next time.</p>
-      </div>
-    </transition>
-    <transition name="slide">
-      <tablesChooser
-      v-on:toggleNumber="toggleNumber" 
-      v-bind:numbers="choicesStates"
-      v-if="showSettings">
-      </tablesChooser>
-    </transition>
+    <div class="info-boxes-container">
+      <transition name="slide">
+        <div v-if="showAbout" class="about-info">
+          <h3>Generate Times Tables Practise Sheets</h3>
+          <p>Use the settings section to select the times tables you want students to practise and click print to generate a printable worksheet. We normally set a 5 minute timer and see how many each person can do, then they can record this score (or the their time, or both) to try to improve on it next time.</p>
+        </div>
+      </transition>
+      <transition name="slide">
+        <tablesChooser
+        v-on:toggleNumber="toggleNumber" 
+        v-bind:numbers="choicesStates"
+        v-if="showSettings">
+        </tablesChooser>
+      </transition>
+    </div>
     <tableOutput
     v-bind:colHeaders="colHeaders"
     v-bind:rowHeaders="rowHeaders">

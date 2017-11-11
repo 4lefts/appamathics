@@ -193,11 +193,8 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    h1, h5{
+    h1{
         margin: 0;
-    }
-    h5{
-        margin-top: 0.4rem;
     }
     button{
         @include icon-button();
@@ -227,6 +224,7 @@ input{
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
     width: 400px;
+    margin: 0 $gutter;
     padding: 5px;
     padding-left: 0;
     background: transparent;
@@ -258,6 +256,7 @@ label{
     font-size: 0.9rem;
     padding: 5px;
     padding-left: 0;
+    margin: 0 $gutter;
 }
 
 @mixin slide-in-info{
@@ -265,15 +264,18 @@ label{
     @include container();
     margin: $gutter auto;
     box-sizing: border-box;
-    padding: $gutter;
+    width: 100%;
     background-color: #ffffff;
+    padding-bottom: $gutter;
     p{
-        margin-bottom: 0;
+        padding: 0 $gutter;
     }
     h3{
-        margin-top: 0.3rem;
-        padding-bottom: 0.35rem;
-        border-bottom: 1px solid $light;
+        margin: 0;
+        box-sizing: border-box;
+        padding: 1.3rem $gutter 0.8rem $gutter;
+        width: 100%;
+        border-bottom: 1px solid $primary;
     }
     input{
         margin-bottom: 20px;
@@ -283,21 +285,23 @@ label{
     }
 }
 
-.about-info{
-    @include slide-in-info();
+.info-boxes-container{
+    margin: $gutter;
+    .about-info{
+        @include slide-in-info();
+    }
+    .settings{
+        @include slide-in-info();
+        h3{
+            margin-bottom: 1rem;
+        }
+        p{
+            font-size: 0.9rem;
+            color: $text-secondary;
+        }
+    }  
 }
 
-.settings{
-    @include slide-in-info();
-    h3{
-        margin-bottom: 1rem;
-    }
-    p{
-        font-size: 0.9rem;
-        color: $text-secondary;
-    }
-}
-  
 .slide-enter-active, .slide-leave-active {
     transition: all .5s;
 }

@@ -16,42 +16,44 @@
                 </button>
              </div>
         </header>
-        <transition name="slide">
-            <div v-if="showAbout" class="about-info">
-                <h3>Random Numbergy Generator</h3>
-                <p>Useful for all kinds of things. Ordering, sorting, comparison, quick starter activities, practising column addition, subtraction, long or short multiplication.</p>
-            </div>
-        </transition>
-        <transition name="slide">
-            <div class="settings" v-if="showSettings">
-                <h3>Choose Numbers</h3>
-                <label for="numberOne">Between...</label>
-                <input 
-                type="number"
-                name="numberOne"
-                v-model.number="numberOne">
-                <label for="numberTwo">...and...</label>
-                <input 
-                type="number" 
-                name="numberTwo" 
-                v-model.number="numberTwo">
-                <label for="decimalPlaces">Decimal Places:</label>
-                <input 
-                type="number" 
-                name="decimalPlaces"
-                min="0" 
-                max="6"
-                v-model.number="decimalPlaces">
-                <label for="numberOfNumbers">Number of Numbers:</label>
-                <input 
-                type="number" 
-                name="numberOfNumbers" 
-                min="1" 
-                max="10" 
-                v-model.number="numberOfNumbers">
-                <p>(Choosing {{numberOfNumbers}} numbers between {{this.bounds.lower}} and {{this.bounds.upper}}, to {{decimalPlaces}} decimal places.)</p>
-            </div>
-        </transition>
+        <div class="info-boxes-container">
+            <transition name="slide">
+                <div v-if="showAbout" class="about-info">
+                    <h3>Random Numbergy Generator</h3>
+                    <p>Useful for all kinds of things. Ordering, sorting, comparison, quick starter activities, practising column addition, subtraction, long or short multiplication.</p>
+                </div>
+            </transition>
+            <transition name="slide">
+                <div class="settings" v-if="showSettings">
+                    <h3>Choose Numbers</h3>
+                    <label for="numberOne">Between...</label>
+                    <input 
+                    type="number"
+                    name="numberOne"
+                    v-model.number="numberOne">
+                    <label for="numberTwo">...and...</label>
+                    <input 
+                    type="number" 
+                    name="numberTwo" 
+                    v-model.number="numberTwo">
+                    <label for="decimalPlaces">Decimal Places:</label>
+                    <input 
+                    type="number" 
+                    name="decimalPlaces"
+                    min="0" 
+                    max="6"
+                    v-model.number="decimalPlaces">
+                    <label for="numberOfNumbers">Number of Numbers:</label>
+                    <input 
+                    type="number" 
+                    name="numberOfNumbers" 
+                    min="1" 
+                    max="10" 
+                    v-model.number="numberOfNumbers">
+                    <p>(Choosing {{numberOfNumbers}} numbers between {{this.bounds.lower}} and {{this.bounds.upper}}, to {{decimalPlaces}} decimal places.)</p>
+                </div>
+            </transition>
+        </div>
         
         <div class="numbers-container">
             <div v-for="number in randomNumbers" class="number-output">{{number}}</div>

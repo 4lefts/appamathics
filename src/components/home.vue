@@ -11,13 +11,15 @@
         </button>
       </div>
     </header>
-    <transition name="slide">
-      <div v-if="showAbout" class="about-info">
-        <h3>Simple Apps for Classrooms</h3>
-        <p>Appamathics is a growing collection of web apps that are hopefully useful in primary school classrooms. They are not designed to fit a specific purpose; they're just things that I've found useful. Each one has a help page that tries to suggest some possible uses for the app. If you have ideas for apps you'd like to see here, or ways the apps or the site could be improved, please get in touch.</p>
-        <p>Thanks,<br>Stephen Ball,<br>{{getDate}}</p>
-      </div>
-    </transition>
+    <div class="info-boxes-container">
+      <transition name="slide">
+        <div v-if="showAbout" class="about-info">
+          <h3>Simple Apps for Classrooms</h3>
+          <p>Appamathics is a growing collection of web apps that are hopefully useful in primary school classrooms. They are not designed to fit a specific purpose; they're just things that I've found useful. Each one has a help page that tries to suggest some possible uses for the app. If you have ideas for apps you'd like to see here, or ways the apps or the site could be improved, please get in touch.</p>
+          <p>Thanks,<br>Stephen Ball,<br>{{getDate}}</p>
+        </div>
+      </transition>
+    </div>
     <div id="search-container">
       <img id="search-icon" src="../assets/icons/search_dark_36.svg" alt="search icon">
       <input id="search" type="text" v-model="search" placeholder="search">
@@ -114,14 +116,14 @@ export default {
   margin: $gutter;
   box-sizing: border-box;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-flow: wrap;
   justify-content: space-around;
   a{
     text-decoration: none;
     color: $text;
     width: 100%;
-    margin: $gutter 0;
+    margin: $gutter 0 0 0;
     box-sizing: border-box;
     border-radius: 2px;
     @include card(1);
@@ -130,24 +132,35 @@ export default {
       outline: none;
       color: $primary;
     }
-      h3{
-        margin: 0;
-        box-sizing: border-box;
-        padding: 1.3rem $gutter 0.8rem $gutter;
-        width: 100%;
-        border-bottom: 1px solid $primary;
+    h3{
+      margin: 0;
+      box-sizing: border-box;
+      padding: 1.3rem $gutter 0.8rem $gutter;
+      width: 100%;
+      border-bottom: 1px solid $primary;
+    }
+    p{
+      padding: 0.4rem $gutter;
+      font-size: 0.9rem;
+    }
+    &:hover{
+      @include card(3);
+      a{
+        color: $primary;
       }
-      p{
-        padding: 0.4rem $gutter;
-        font-size: 0.9rem;
-      }
-      &:hover{
-        @include card(3);
-        a{
-          color: $primary;
-        }
-      }
-    
+    }
+  }
+  @media screen and (min-width: 540px) {
+    flex-direction: row;
+    a{
+      width: 49%;
+    }
+  }
+  @media screen and (min-width: 720px) {
+    flex-direction: row;
+    a{
+      width: 24%;
+    }
   }
 }
 </style>
