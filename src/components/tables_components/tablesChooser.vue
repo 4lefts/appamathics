@@ -38,9 +38,9 @@ export default {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: space-around;
             .number-choice-button{
-                font-size: 3rem;
+                font-size: 1.7rem;
                 line-height: 2em;
                 width: 2em;
                 text-align: center;
@@ -59,6 +59,24 @@ export default {
             .number-choice-button.active{
                 background-color: $primary;
                 color: #ffffff;
+            }
+        }
+    }
+    @media screen and (min-width: 480px) {
+        .chooser-container{
+                .number-chooser{
+                    .number-choice-button{
+                    font-size: 2.3rem;
+                }
+            }
+        }
+    }
+    @media screen and (min-width: 720px) {
+        .chooser-container{
+                .number-chooser{
+                    .number-choice-button{
+                    font-size: 3rem;
+                }
             }
         }
     }
