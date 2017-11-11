@@ -101,7 +101,7 @@ export default {
             table-layout: fixed;
             td, th {
                 text-align: center;
-                font-size: 1.4em;
+                font-size: 1.4rem;
                 vertical-align: middle;
                 font-weight: 300;
                 border: 1px solid $text;

@@ -1,7 +1,8 @@
 <template>
   <div>
     <header>
-      <div class="container">
+      <div class="button-group">
+        <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
         <h1>Tables Challenge</h1>
       </div>
       <div class="button-group">
@@ -13,12 +14,11 @@
           <img v-if="showAbout" src="../assets/icons/close.svg" alt="close about button">
           <span v-else>?</span>
         </button>
-        <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
       </div>
     </header>
     <transition name="slide">
       <div v-if="showAbout" class="about-info">
-        <h2>Generate Times Tables Warm-Up Sheets</h2>
+        <h3>Generate Times Tables Practise Sheets</h3>
         <p>Use the settings section to select the times tables you want students to practise and click print to generate a printable worksheet. We normally set a 5 minute timer and see how many each person can do, then they can record this score (or the their time, or both) to try to improve on it next time.</p>
       </div>
     </transition>

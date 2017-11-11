@@ -40,10 +40,9 @@ export default {
             flex-wrap: wrap;
             justify-content: space-between;
             .number-choice-button{
-                $sz: 2.1em;
-                line-height: $sz;
-                width: $sz;
-                font-size: $sz;
+                font-size: 3rem;
+                line-height: 2em;
+                width: 2em;
                 text-align: center;
                 margin-bottom: $gutter;
                 @include card(1);

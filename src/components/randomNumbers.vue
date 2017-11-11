@@ -1,7 +1,8 @@
 <template>
     <div>
         <header>
-            <div class="container">
+            <div class="button-group">
+                <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
                 <h1>Random Numbers</h1>
             </div>
             <div class="button-group">
@@ -13,12 +14,11 @@
                 <img v-if="showAbout" src="../assets/icons/close.svg" alt="close about button">
                 <span v-else>?</span>
                 </button>
-                <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
-            </div>
+             </div>
         </header>
         <transition name="slide">
             <div v-if="showAbout" class="about-info">
-                <h3>Random Number Generator</h3>
+                <h3>Random Numbergy Generator</h3>
                 <p>Useful for all kinds of things. Ordering, sorting, comparison, quick starter activities, practising column addition, subtraction, long or short multiplication.</p>
             </div>
         </transition>
@@ -145,7 +145,7 @@ export default {
         flex-flow: wrap;
         justify-content: space-around;
         .number-output{
-            font-size: 4em;
+            font-size: 4rem;
             box-sizing: border-box;
             margin: $gutter 0 0 0;
             padding: 0 $gutter;

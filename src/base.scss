@@ -88,7 +88,7 @@ $text-secondary: rgba(0, 0, 0, 0.6);
     padding: 0;
     width: $size;
     height: $size;
-    font-size: 1.1em;
+    font-size: 1.35rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -149,7 +149,7 @@ button:focus:not(:active)::after {
     padding: 0;
     min-width: 150px;
     height: $size;
-    font-size: 1.1em;
+    font-size: 1.1rem;
     border-radius: 2px;
     display: flex;
     align-items: center;
@@ -163,7 +163,6 @@ button:focus:not(:active)::after {
     transition: all 0.3s ease;
     &:focus, &:hover{
         outline: none;
-        // transform: scale(1.1);
         @include card(3, $light);
     }
 }
@@ -176,8 +175,8 @@ button:focus:not(:active)::after {
 
 @import url('https://fonts.googleapis.com/css?family=Lora|Open+Sans');
 body{
-    font-size: 20px;
-    // font-family: 'Lora', serif;
+    font-size: 16px;
+    //font-family: 'Lora', serif;
     font-family: 'Open Sans', sans-serif;
     background-color: $background;
 }
@@ -198,10 +197,13 @@ header{
         margin: 0;
     }
     h5{
-        margin-top: 0.4em;
+        margin-top: 0.4rem;
     }
-    button, a{
+    button{
         @include icon-button();
+    }
+    a{
+        @include icon-button(50px, $light)
     }
     border-bottom: 1px solid $primary;
 }
@@ -215,8 +217,8 @@ header{
 .button-group{
     display: flex;
     align-items: center;
-    button{
-        margin-right: $gutter;
+    button, h1{
+        margin-left: $gutter;
     }
 }
 
@@ -230,7 +232,7 @@ input{
     background: transparent;
     border: none;
     border-bottom: 1px solid lighten($text, 70%);
-    font-size: 1.2em;
+    font-size: 1.2rem;
     &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
       color: #777777;
     }
@@ -253,12 +255,12 @@ input{
 label{
     margin-top: $gutter;
     color: $text-secondary;
-    font-size: 0.7em;
+    font-size: 0.9rem;
     padding: 5px;
     padding-left: 0;
 }
 
-.settings{
+@mixin slide-in-info{
     @include card(1);
     @include container();
     margin: $gutter auto;
@@ -267,12 +269,11 @@ label{
     background-color: #ffffff;
     p{
         margin-bottom: 0;
-        font-size: 0.7em;
-        color: $text-secondary;
     }
     h3{
-        margin-top: 0.3em;
-        margin-bottom: 0.15em; 
+        margin-top: 0.3rem;
+        padding-bottom: 0.35rem;
+        border-bottom: 1px solid $light;
     }
     input{
         margin-bottom: 20px;
@@ -283,16 +284,17 @@ label{
 }
 
 .about-info{
-    @include card(1);
-    @include container();
-    margin-top: $gutter;
-    padding: $gutter;
-    p{
-        margin-bottom: 0;
-    }
+    @include slide-in-info();
+}
+
+.settings{
+    @include slide-in-info();
     h3{
-        margin-top: 0.3em;
-        margin-bottom: 0.15em; 
+        margin-bottom: 1rem;
+    }
+    p{
+        font-size: 0.9rem;
+        color: $text-secondary;
     }
 }
   

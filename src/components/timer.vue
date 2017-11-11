@@ -1,7 +1,8 @@
 <template>
   <div>
       <header>
-            <div class="container">
+            <div class="button-group">
+                <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
                 <h1>Timer</h1>
             </div>
             <div class="button-group">
@@ -13,7 +14,6 @@
                 <img v-if="showAbout" src="../assets/icons/close.svg" alt="close about button">
                 <span v-else>?</span>
                 </button>
-                <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
             </div>
         </header>
         <transition name="slide">

@@ -13,7 +13,7 @@
     </header>
     <transition name="slide">
       <div v-if="showAbout" class="about-info">
-        <h2>Simple Apps for Classrooms</h2>
+        <h3>Simple Apps for Classrooms</h3>
         <p>Appamathics is a growing collection of web apps that are hopefully useful in primary school classrooms. They are not designed to fit a specific purpose; they're just things that I've found useful. Each one has a help page that tries to suggest some possible uses for the app. If you have ideas for apps you'd like to see here, or ways the apps or the site could be improved, please get in touch.</p>
         <p>Thanks,<br>Stephen Ball,<br>{{getDate}}</p>
       </div>
@@ -23,12 +23,10 @@
       <input id="search" type="text" v-model="search" placeholder="search">
     </div>
     <div class="card-grid">
-      <div v-for="app in filteredAppList" class="app-card">
-        <router-link v-bind:to="app.path">
+        <router-link v-for="app in filteredAppList" :key="app.path" v-bind:to="app.path">
           <h3>{{app.name}}</h3>
           <p>{{app.description}}</p>
         </router-link>
-      </div>
     </div>
   </div>
 </template>
@@ -64,9 +62,24 @@ export default {
       return `${months[d.getMonth()]}, ${d.getFullYear()}`
     },
     filteredAppList: function(){
-      return this.appList.filter(app => {
-        return app.name.toLowerCase().includes(this.search.toLowerCase())
-      })
+      return this.appList
+            .filter(app => {
+              return app.name
+                        .toLowerCase()
+                        .includes(this.search.toLowerCase())
+            })
+            .sort((a, b) => {
+              const nameA = a.name.toUpperCase()
+              const nameB = b.name.toUpperCase()
+              if(nameA < nameB){
+                return -1
+              }
+              if(nameA > nameB){
+                return 1
+              }
+              //names are the same - this should never happen
+              return 0
+            })
     }
   },
   methods: {
@@ -104,38 +117,37 @@ export default {
   flex-direction: row;
   flex-flow: wrap;
   justify-content: space-around;
-  .app-card{
-    box-sizing: border-box;
+  a{
+    text-decoration: none;
+    color: $text;
+    width: 100%;
     margin: $gutter 0;
-    width: 23%;
+    box-sizing: border-box;
     border-radius: 2px;
     @include card(1);
     transition: all 0.3s ease;
-    h3{
-      margin: 0;
-      box-sizing: border-box;
-      padding: 1.3rem $gutter 0.8rem $gutter;
-      width: 100%;
-      border-bottom: 1px solid $primary;
+    &:focus{
+      outline: none;
+      color: $primary;
     }
-    p{
-      padding: 0 $gutter;
-      font-size: 0.8rem;
-    }
-    a{
-      text-decoration: none;
-      color: $text;
-      &:focus{
-        outline: none;
-        color: $primary;
+      h3{
+        margin: 0;
+        box-sizing: border-box;
+        padding: 1.3rem $gutter 0.8rem $gutter;
+        width: 100%;
+        border-bottom: 1px solid $primary;
       }
-    }
-    &:hover{
-      @include card(3);
-      a{
-        color: $primary;
+      p{
+        padding: 0.4rem $gutter;
+        font-size: 0.9rem;
       }
-    }
+      &:hover{
+        @include card(3);
+        a{
+          color: $primary;
+        }
+      }
+    
   }
 }
 </style>
