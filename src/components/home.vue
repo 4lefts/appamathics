@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header class="home-header">
       <div>
         <h1>Appamathics</h1>
       </div>
@@ -95,20 +95,58 @@ export default {
 <style lang="scss">
 @import '../base.scss';
 
+header.home-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: $gutter 5px 10px 5px;
+  h1{
+    // space where logo will go
+    margin-left: 45px;
+  }
+}
+@media screen and (min-width: 540px){
+    header.home-header{
+        padding: $gutter;
+        h1{
+          font-size: 2rem;
+        }
+        .button-group{
+            button{
+                @include icon-button(50px, $primary);                
+            }
+            a{
+                @include icon-button(50px, white)
+            }
+            button, h1{
+                margin-left: $gutter;
+            }
+        }
+    }
+}
+
 #search-container{
   box-sizing: border-box;
   @include card(1);
   padding: $gutter;
   position: relative;
-  width: 400px;
-  margin: 50px auto 10px auto;
+  max-width: 400px;
+  margin: 40px $gutter 10px $gutter;
   display: flex;
   align-items: center;
  #search-icon{
-    position: absolute;
+   position: absolute;
   }
   #search{
     padding-left: 48px;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 480px){
+  #search-container{
+    margin: 40px auto 10px auto;
   }
 }
 
@@ -137,7 +175,7 @@ export default {
       box-sizing: border-box;
       padding: 1.3rem $gutter 0.8rem $gutter;
       width: 100%;
-      border-bottom: 1px solid $primary;
+      border-bottom: 1px solid $light;
     }
     p{
       padding: 0.4rem $gutter;

@@ -2,7 +2,7 @@
     <div>
         <header>
             <div class="button-group">
-                <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
+                <router-link to="/"><img src="../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
                 <h1>Random Numbers</h1>
             </div>
             <div class="button-group">
@@ -19,7 +19,7 @@
         <div class="info-boxes-container">
             <transition name="slide">
                 <div v-if="showAbout" class="about-info">
-                    <h3>Random Numbergy Generator</h3>
+                    <h3>Random Number Generator</h3>
                     <p>Useful for all kinds of things. Ordering, sorting, comparison, quick starter activities, practising column addition, subtraction, long or short multiplication.</p>
                 </div>
             </transition>
@@ -49,7 +49,8 @@
                     name="numberOfNumbers" 
                     min="1" 
                     max="10" 
-                    v-model.number="numberOfNumbers">
+                    v-model.number="numberOfNumbers"
+                    v-on:change="initNumbers">
                     <p>(Choosing {{numberOfNumbers}} numbers between {{this.bounds.lower}} and {{this.bounds.upper}}, to {{decimalPlaces}} decimal places.)</p>
                 </div>
             </transition>
@@ -100,6 +101,9 @@ export default {
                     t++
                 }
             }, 50)
+        },
+        initNumbers: function(){
+            this.randomNumbers = Array(this.numberOfNumbers).fill('?')
         }
     },
     computed: {
@@ -123,7 +127,7 @@ export default {
         }
     },
     created: function(){
-        this.makeNumbers()
+        this.initNumbers()
     }
 }
 </script>
@@ -132,7 +136,7 @@ export default {
     @import '../base.scss';
 
     .go-button{
-        @include icon-button(100px);
+        @include icon-button(80px);
         @include card(2, $accent);
         margin: $gutter auto $gutter*2 auto;
         &:hover, &:focus{
@@ -140,23 +144,53 @@ export default {
             @include card(4, $accent);
         }
     }
+    @media screen and (min-width: 480px){
+        .go-button{
+            @include icon-button(100px);
+            @include card(2, $accent);
+            margin: $gutter auto $gutter*2 auto;
+            &:hover, &:focus{
+                transform: scale(1);
+                @include card(4, $accent);
+            }
+        }
+    }
 
     .numbers-container{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-flow: wrap;
         justify-content: space-around;
+        margin: 0 $gutter;
         .number-output{
-            font-size: 4rem;
+            font-size: 2rem;
             box-sizing: border-box;
+            overflow: hidden;
             margin: $gutter 0 0 0;
             padding: 0 $gutter;
-            min-width: 24%;
+            min-width: 49%;
             height: 2em;
             @include card(1);
             text-align: center;
             line-height: 2em;
        }
     }
+    @media screen and (min-width: 480px) {
+        .numbers-container{
+            .number-output{
+                font-size: 3rem;
+                min-width: 49%;
+            }
+        }
+    }
+    @media screen and (min-width: 720px) {
+        .numbers-container{
+            .number-output{
+                font-size: 4rem;
+                min-width: 24%;
+            }
+        }
+    }
+
 
 </style>

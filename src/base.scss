@@ -189,20 +189,56 @@ header{
     box-sizing: border-box;
     @include card(2);
     background-color: white;
-    padding: $gutter;
+    padding: $gutter 5px 10px 5px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     justify-content: space-between;
     h1{
         margin: 0;
+        font-size: 1.5rem;
     }
-    button{
-        @include icon-button();
-    }
-    a{
-        @include icon-button(50px, $light)
+    .button-group{
+        display: flex;
+        align-items: center;
+        button{
+            @include icon-button(40px, $primary);
+        }
+        a{
+            @include icon-button(40px, white)
+        }
+        button, h1, a{
+            margin: 0 5px;
+        }
+        &:last-child{
+            margin-top: 5px;
+            align-self: flex-end;
+        }
     }
     border-bottom: 1px solid $primary;
+}
+
+@media screen and (min-width: 540px){
+    header{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: $gutter;
+        .button-group{
+            h1{
+                font-size: 2rem;
+            }
+            button{
+                @include icon-button(50px, $primary);                
+            }
+            a{
+                @include icon-button(50px, white)
+            }
+            button, h1{
+                margin-left: $gutter;
+            }
+        }
+    }
 }
 
 @media print{
@@ -211,22 +247,14 @@ header{
     }
 }
 
-.button-group{
-    display: flex;
-    align-items: center;
-    button, h1{
-        margin-left: $gutter;
-    }
-}
+
 
 input{
     display: block;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
-    width: 400px;
-    margin: 0 $gutter;
+    width: 100%;
     padding: 5px;
-    padding-left: 0;
     background: transparent;
     border: none;
     border-bottom: 1px solid lighten($text, 70%);
@@ -255,8 +283,6 @@ label{
     color: $text-secondary;
     font-size: 0.9rem;
     padding: 5px;
-    padding-left: 0;
-    margin: 0 $gutter;
 }
 
 @mixin slide-in-info{
@@ -266,16 +292,13 @@ label{
     box-sizing: border-box;
     width: 100%;
     background-color: #ffffff;
-    padding-bottom: $gutter;
-    p{
-        padding: 0 $gutter;
-    }
+    padding: $gutter;
     h3{
         margin: 0;
         box-sizing: border-box;
-        padding: 1.3rem $gutter 0.8rem $gutter;
+        padding: 1rem 0 0.6rem 0;
         width: 100%;
-        border-bottom: 1px solid $primary;
+        border-bottom: 1px solid $light;
     }
     input{
         margin-bottom: 20px;

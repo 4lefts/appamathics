@@ -2,7 +2,7 @@
   <div>
       <header>
             <div class="button-group">
-                <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
+                <router-link to="/"><img src="../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
                 <h1>Timer</h1>
             </div>
             <div class="button-group">
@@ -146,7 +146,7 @@ export default {
         justify-content: center;
     }
     .start-button, .reset-button{
-        @include icon-button(100px);
+        @include icon-button(80px);
         @include card(2, $primary);
         &:hover, &:focus{
             transform: scale(1);
@@ -154,7 +154,7 @@ export default {
         }
     }
     .stop-button{
-        @include icon-button(100px);
+        @include icon-button(80px);
         @include card(2, $accent);
         &:hover, &:focus{
             transform: scale(1);
@@ -163,5 +163,26 @@ export default {
     }
     .reset-button{
         margin-left: $gutter*5;   
+    }
+    @media screen and (min-width: 480px){
+        .start-button, .reset-button{
+            @include icon-button(100px);
+            @include card(2, $primary);
+            &:hover, &:focus{
+                transform: scale(1);
+                @include card(4, $primary);
+            }
+        }
+        .stop-button{
+            @include icon-button(100px);
+            @include card(2, $accent);
+            &:hover, &:focus{
+                transform: scale(1);
+                @include card(4, $accent);
+            }
+        }
+        .reset-button{
+            margin-left: $gutter*5;   
+        }
     }
 </style>

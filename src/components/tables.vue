@@ -2,7 +2,7 @@
   <div>
     <header>
       <div class="button-group">
-        <router-link to="/"><img src="../assets/icons/arrow_back.svg" alt="back to home page"></router-link>
+        <router-link to="/"><img src="../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
         <h1>Tables Challenge</h1>
       </div>
       <div class="button-group">
