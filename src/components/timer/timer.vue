@@ -2,16 +2,16 @@
   <div>
       <header>
             <div class="button-group">
-                <router-link to="/"><img src="../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
+                <router-link to="/"><img src="../../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
                 <h1>Timer</h1>
             </div>
             <div class="button-group">
                 <button v-on:click="showSettings = !showSettings">
-                <img v-if="showSettings" src="../assets/icons/close.svg" alt="close settings button">
-                <img v-else src="../assets/icons/settings.svg" alt="show settings button">
+                <img v-if="showSettings" src="../../assets/icons/close.svg" alt="close settings button">
+                <img v-else src="../../assets/icons/settings.svg" alt="show settings button">
                 </button>
                 <button v-on:click="showAbout = !showAbout">
-                <img v-if="showAbout" src="../assets/icons/close.svg" alt="close about button">
+                <img v-if="showAbout" src="../../assets/icons/close.svg" alt="close about button">
                 <span v-else>?</span>
                 </button>
             </div>
@@ -128,7 +128,7 @@ export default {
 </script>
 
 <style lang="scss">
-    @import '../base.scss';
+    @import '../../base.scss';
     #countdown{
         font-size: 30vmin;
         text-align: center;

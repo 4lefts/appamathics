@@ -1,9 +1,7 @@
-import testApp1 from './components/testApp1.vue'
-import testApp2 from './components/testApp2.vue'
-import testApp3 from './components/testApp3.vue'
-import tables from './components/tables.vue'
-import randomNumbers from './components/randomNumbers.vue'
-import timer from './components/timer.vue'
+import tables from './components/tables/tables.vue'
+import randomNumbers from './components/randomNumbers/randomNumbers.vue'
+import timer from './components/timer/timer.vue'
+import p5test from './components/p5test/p5test.vue'
 
 const appList = [
     {
@@ -23,6 +21,12 @@ const appList = [
         description: 'A countdown timer',
         path: '/timer',
         component: timer
+    },
+    {
+        name: 'p5 Test',
+        description: 'A test of p5js',
+        path: '/p5test',
+        component: p5test
     }
 ]
 

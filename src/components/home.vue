@@ -135,7 +135,7 @@ header.home-header{
   margin: 40px $gutter 10px $gutter;
   display: flex;
   align-items: center;
- #search-icon{
+  #search-icon{
    position: absolute;
   }
   #search{

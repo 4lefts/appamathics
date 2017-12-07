@@ -1,6 +1,11 @@
 # appamathics
 
-> A Vue.js project
+> A collection of apps for classrooms
+
+## Ideas:
+
+- Bars for addition/subtraction/inverse/fractions/ratio
+- Geometry apps - triangle, parallelogram angles, areas and perimters. Perpendicular lines.
 
 ## Build Setup
 
@@ -18,4 +23,3 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
