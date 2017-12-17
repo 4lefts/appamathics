@@ -1,21 +1,12 @@
 <template>
     <div>
-        <header>
-            <div class="button-group">
-                <router-link to="/"><img src="../../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
-                <h1>Random Numbers</h1>
-            </div>
-            <div class="button-group">
-                <button v-on:click="toggleSettings">
-                <img v-if="showSettings" src="../../assets/icons/close.svg" alt="close settings button">
-                <img v-else src="../../assets/icons/settings.svg" alt="show settings button">
-                </button>
-                <button v-on:click="toggleAbout">
-                <img v-if="showAbout" src="../../assets/icons/close.svg" alt="close about button">
-                <span v-else>?</span>
-                </button>
-             </div>
-        </header>
+        <top
+            v-bind:title="title"
+            v-bind:show-settings="showSettings"
+            v-bind:show-about="showAbout"
+            v-on:toggleSettings="showSettings = !showSettings"
+            v-on:toggleAbout="showAbout = !showAbout"
+        ></top>
         <div class="info-boxes-container">
             <transition name="slide">
                 <div v-if="showAbout" class="about-info">
@@ -59,16 +50,20 @@
         <div class="numbers-container">
             <div v-for="number in randomNumbers" class="number-output">{{number}}</div>
         </div>
-        
         <button v-on:click="go" class="go-button">Go</button>
 
     </div>
 </template>
 
 <script>
+import top from '../top.vue'
 export default {
+    components: {
+        top   
+    },
     data: function(){
         return {
+            title: 'Random Numbers',
             showSettings: false,
             showAbout: false,
             numberTwo: 100,
@@ -79,12 +74,6 @@ export default {
         }
     },
     methods: {
-        toggleAbout: function(){
-            this.showAbout = !this.showAbout
-        },
-        toggleSettings: function(){
-            this.showSettings = !this.showSettings
-        },
         makeNumbers: function(){
             this.randomNumbers = []
             for(let i = this.numberOfNumbers; i > 0; i--){

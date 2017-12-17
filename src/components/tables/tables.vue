@@ -1,21 +1,12 @@
 <template>
   <div>
-    <header>
-      <div class="button-group">
-        <router-link to="/"><img src="../../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
-        <h1>Tables Challenge</h1>
-      </div>
-      <div class="button-group">
-        <button v-on:click="toggleSettings">
-          <img v-if="showSettings" src="../../assets/icons/close.svg" alt="close settings button">
-          <img v-else src="../../assets/icons/settings.svg" alt="show settings button">
-        </button>
-        <button v-on:click="toggleAbout">
-          <img v-if="showAbout" src="../../assets/icons/close.svg" alt="close about button">
-          <span v-else>?</span>
-        </button>
-      </div>
-    </header>
+    <top
+      v-bind:title="title"
+      v-bind:show-settings="showSettings"
+      v-bind:show-about="showAbout"
+      v-on:toggleSettings="showSettings = !showSettings"
+      v-on:toggleAbout="showAbout = !showAbout"
+    ></top> 
     <div class="info-boxes-container">
       <transition name="slide">
         <div v-if="showAbout" class="about-info">
@@ -39,6 +30,7 @@
 </template>
 
 <script>
+import top from '../top.vue'
 import tablesChooser from './tablesChooser.vue'
 import tableOutput from './tableOutput.vue'
 
@@ -46,6 +38,7 @@ export default {
   name: 'app',
   data: function() {
     return {
+      title: 'Times Tables',
       choicesStates: {
         1: true,
         2: true,
@@ -85,18 +78,13 @@ export default {
         colChoices.splice(x, 1)
         rowChoices.splice(y, 1)
       }
-    },
-    toggleAbout: function(){
-        this.showAbout = !this.showAbout
-    },
-    toggleSettings: function(){
-      this.showSettings = !this.showSettings
     }
   },
   created: function(){
     this.generateHeaders(this.choicesStates)
   },
   components: {
+    top,
     tablesChooser,
     tableOutput,
   }

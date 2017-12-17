@@ -1,21 +1,12 @@
 <template>
   <div>
-      <header>
-            <div class="button-group">
-                <router-link to="/"><img src="../../assets/icons/arrow_back_dark.svg" alt="back to home page"></router-link>
-                <h1>Timer</h1>
-            </div>
-            <div class="button-group">
-                <button v-on:click="showSettings = !showSettings">
-                <img v-if="showSettings" src="../../assets/icons/close.svg" alt="close settings button">
-                <img v-else src="../../assets/icons/settings.svg" alt="show settings button">
-                </button>
-                <button v-on:click="showAbout = !showAbout">
-                <img v-if="showAbout" src="../../assets/icons/close.svg" alt="close about button">
-                <span v-else>?</span>
-                </button>
-            </div>
-        </header>
+        <top
+            v-bind:title="title"
+            v-bind:show-settings="showSettings"
+            v-bind:show-about="showAbout"
+            v-on:toggleSettings="showSettings = !showSettings"
+            v-on:toggleAbout="showAbout = !showAbout"
+        ></top>
         <div class="info-boxes-container">
             <transition name="slide">
                 <div class="settings" v-if="showSettings">
@@ -59,9 +50,14 @@
 </template>
 
 <script>
+import top from '../top.vue'
 export default {
+    components: {
+        top
+    },
     data: function(){
        return {
+            title: 'Timer',
             showSettings: false,
             showAbout: false,
             minutesInput: 1,
