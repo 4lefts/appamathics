@@ -22,7 +22,7 @@
     </div>
     <div id="search-container">
       <img id="search-icon" src="../assets/icons/search_dark_36.svg" alt="search icon">
-      <input id="search" type="text" v-model="search" placeholder="search">
+      <input id="search" type="text" v-model="search" placeholder="Search">
     </div>
     <div class="card-grid">
         <router-link v-for="app in filteredAppList" :key="app.path" v-bind:to="app.path">

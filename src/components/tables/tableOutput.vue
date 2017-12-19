@@ -1,7 +1,9 @@
 <template>
     <div class="sheet-container">
         <div class="sheet-inner">
-            <printButton></printButton>
+            <div class="controls-container">
+                <printButton></printButton>
+            </div>
             <div class="sheet-header">
                 <h2>Target from last time:</h2>
                 <div class="score-boxes">
@@ -31,7 +33,7 @@
 </template>
 
 <script>
-import printButton from "./printButton.vue";
+import printButton from "../general/printButton.vue";
 export default {
    props: ['colHeaders', 'rowHeaders'],
    components: {
@@ -51,6 +53,11 @@ export default {
                 box-sizing: border-box;
                 padding: $gutter;
                 background-color: #ffffff;
+                .controls-container{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-end;
+                }
                 .score-boxes{
                     display: flex;
                     flex-direction: row;
@@ -106,7 +113,7 @@ export default {
     }
     @media print{
         $printSz: 17cm;
-        button{
+        .controls-container{
             display: none;
         }
         .sheet-container{

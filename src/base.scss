@@ -102,7 +102,7 @@ $text-secondary: rgba(0, 0, 0, 0.6);
     transition: all 0.3s ease;
     &:focus, &:hover{
         outline: none;
-        transform: scale(1.1);
+        // transform: scale(1.1);
         @include card(3, $colour);
     }
     &::-moz-focus-inner{
@@ -194,28 +194,29 @@ header{
     flex-direction: column;
     align-items: left;
     justify-content: space-between;
+    border-bottom: 1px solid $primary;
     h1{
         margin: 0;
         font-size: 1.5rem;
     }
-    .button-group{
-        display: flex;
-        align-items: center;
-        button{
-            @include icon-button(40px, $primary);
-        }
-        a{
-            @include icon-button(40px, white)
-        }
-        button, h1, a{
-            margin: 0 5px;
-        }
-        &:last-child{
-            margin-top: 5px;
-            align-self: flex-end;
-        }
+}
+
+.button-group{
+    display: flex;
+    align-items: center;
+    button{
+        @include icon-button(40px, $primary);
     }
-    border-bottom: 1px solid $primary;
+    a{
+        @include icon-button(40px, white)
+    }
+    button, h1, a{
+        margin: 0 5px;
+    }
+    &:last-child{
+        margin-top: 5px;
+        align-self: flex-end;
+    }
 }
 
 @media screen and (min-width: 540px){
