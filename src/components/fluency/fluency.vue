@@ -29,9 +29,14 @@
                         <printButton></printButton>
                     </div>
                     <div class="sheet-output">
-                        <h2>Have some fluency practice...</h2>
-                        <p>...it's like eating All Bran. No-one really likes it, but some old people said it was good for you.</p>
-                        <div class="question" v-for="(q, i) in questionData">
+                        <div class="screen-header">
+                            <h2>Have some fluency practice...</h2>
+                            <p>...it's like eating All Bran. No-one really likes it, but some old people said it was good for you.</p>
+                        </div>
+                        <div class="print-header">
+                            <h2>Fluency Practice</h2>
+                        </div>
+                        <div class="question" v-for="(q, i) in questionsData">
                             <span>{{i + 1}}.</span>
                             <span 
                             v-if="q.a.hasOwnProperty('numerator')"
@@ -53,6 +58,7 @@
                             <span>=</span>
                             <span class="answer"></span>
                         </div>
+                        <geometryQuestion ref="triangle"></geometryQuestion>
                     </div>
                 </div>
             </div>
@@ -63,22 +69,25 @@
 <script>
 import top from '../top.vue'
 import printButton from '../general/printButton.vue'
+import geometryQuestion from './geometryQuestion.vue'
+
 export default {
     components: {
         top,
         printButton,
+        geometryQuestion
     },
     data: function(){
         return {
             title: 'Fluency Sheets',
             showSettings: false,
             showAbout: false,
-            questionData: []
+            questionsData: []
         }
     },
     methods: {
         generateQuestions: function(){
-            this.questionData = [
+            this.questionsData = [
                 {
                     a: makeProperFraction(10),
                     b: makeProperFraction(10),
@@ -115,6 +124,8 @@ export default {
                     op: String.fromCharCode(215)
                 }
             ]
+            //use refs to update triangle component
+            this.$refs.triangle.p5.initPoints()
         }
     },
     mounted: function(){
@@ -160,6 +171,12 @@ function randomInt(lo, hi){
                         }
                     }
                 }
+                .screen-header{
+                    display: block;
+                }
+                .print-header{
+                    display: none;
+                }
             }
         }
         .reroll-button{
@@ -168,11 +185,11 @@ function randomInt(lo, hi){
     }
 
     .sheet-output{
-        p{
+        .screen-header, .print-header{
             margin-bottom: 2em;
         }
         .question{
-            font-size: 2em;
+            font-size: 1.6em;
             height: 3em;
         }
         .frac{
@@ -197,8 +214,13 @@ function randomInt(lo, hi){
 
     @media print {
         $printSz: 17cm;
-        .controls-container{
+        .controls-container, .screen-header{
             display: none;
+        }
+        .print-header{
+            display: block;
+            border-bottom: 1px solid $text;
+            text-transform: uppercase;
         }
         .sheet-container{
             width: $printSz;
