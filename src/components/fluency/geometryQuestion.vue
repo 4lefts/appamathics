@@ -7,131 +7,133 @@
 <script>
 import p5 from 'p5'
 const shape = function(s){
-    // let numPoints = 3
+    
+    let maxSize
+    let padding = 40
     let points = []
-    let rectBounds = {}
-    s.setup = function(){
-        const cnv = s.createCanvas(360, 240)
-        s.initPoints()
+    let labels = {}
+    let minX = 0
+    let theta// = s.randomiseAngle()
+
+    s.init = function(){
+        points = s.makePoints(maxSize, padding)
+        labels = s.makeLabels(points, padding)
+        theta = s.randomiseAngle()
+        console.log(theta * (180/s.PI))
     }
-    s.draw = function(){
-        s.background(255)
-        s.renderBounds(rectBounds)
-        s.renderShape(points)
-    }
-    s.initPoints = function(n){
-        points = []
-        rectBounds = {}
-        const dirs = ['UP', 'DOWN', 'LEFT', 'RIGHT']
-        const dir = dirs[Math.floor(Math.random() * 4)]
-        switch(dir){
-            case 'UP':
-                points.push({
-                    x: s.random(0, s.width),
-                    y: 10
-                })
-                points.push({
-                    x: s.random(10, 40),
-                    y: s.height - 10
-                })
-                points.push({
-                    x: s.width - s.random(10, 70),
-                    y: s.height - 10
-                })
-                break
-            case 'DOWN':
-                points.push({
-                    x: s.random(0, s.width),
-                    y: s.height - 10
-                })
-                points.push({
-                    x: s.random(10, 70),
-                    y: 10
-                })
-                points.push({
-                    x: s.width - s.random(10, 40),
-                    y: 10
-                })
-                break
-            case 'LEFT':
-                points.push({
-                    x: 10,
-                    y: s.random(0, s.height)
-                })
-                points.push({
-                    x: s.width - 10,
-                    y: s.random(10, 70),
-                })
-                points.push({
-                    x: s.width - 10,
-                    y: s.height - s.random(10, 70)
-                })
-                break
-            case 'RIGHT':
-                points.push({
-                    x: s.width - 10,
-                    y: s.random(0, s.height)
-                })
-                points.push({
-                    x: 10,
-                    y: s.random(10, 70),
-                })
-                points.push({
-                    x: 10,
-                    y: s.height - s.random(10, 70)
-                })
-                break
-        }
-        rectBounds = points.reduce((bounds, pt) => {
-            return {
-                dir,
-                minX: pt.x < bounds.minX ? pt.x : bounds.minX,
-                minY: pt.y < bounds.minY ? pt.y : bounds.minY,
-                maxX: pt.x > bounds.maxX ? pt.x : bounds.maxX,
-                maxY: pt.y > bounds.maxY ? pt.y : bounds.maxY,
+
+    s.makePoints = function(maxSz, offset){
+    return [
+            {
+                x: s.random(offset, 70),
+                y: offset
+            },
+            {
+                x: s.random(s.width - 70, s.width - offset),
+                y: offset
+            },
+            {
+                x: s.random(offset, maxSz),
+                y: s.height - offset
             }
-        }, {
-            dir,
-            minX: Infinity,
-            minY: Infinity,
-            maxX: 0,
-            maxY: 0,
-        })
-        rectBounds.xSize = rectBounds.maxX - rectBounds.minX
-        rectBounds.ySize = rectBounds.maxY - rectBounds.minY
-        rectBounds.xLabel = Math.floor(s.random(20, 30)) * 10
-        rectBounds.yLabel = rectBounds.xLabel * (rectBounds.ySize / rectBounds.xSize)
-        console.log(dir)
-        console.log(points)
-        console.log(rectBounds)
+        ]
     }
-    s.renderBounds = function(bounds){
-        s.push()
-        s.fill(0)
-        s.textSize(18)
-        let xl = `${bounds.xLabel}cm`
-        let xw = s.textWidth(xl)
-        switch(bounds.dir){
-            case 'UP':
-                s.text(xl, ((bounds.xSize / 2) + bounds.minX) - (xw / 2), bounds.maxY - 2)
-                break
-            case 'DOWN':
-                break
-            case 'LEFT':
-                break
-            case 'RIGHT':
-                break
+
+    s.makeLabels = function(pts, offset){
+        const mX = points.reduce((currentMin, point) => point.x < currentMin ? point.x : currentMin, Infinity)
+        let ret = {
+            base: {
+                x1: pts[0].x,
+                y1: offset / 2,
+                x2: pts[1].x,
+                y2: offset / 2,
+                label: ''
+            },
+            height: {
+                x1: mX - (offset  / 2),
+                y1: offset,
+                x2: mX - (offset / 2),
+                y2: pts[2].y,
+                label: ''
+            }
         }
+        ret.base.tx = ((ret.base.x2 - ret.base.x1) / 2) + ret.base.x1
+        ret.height.ty = ((ret.height.y2 - ret.height.y1) / 2) + ret.height.y1
+        const baseCM = Math.floor(s.random(11, 30))
+        ret.base.label = `${baseCM} cm`
+        ret.height.label = `${Math.round(baseCM * ((ret.height.y2 - ret.height.y1) / (ret.base.x2 - ret.base.x1)))}cm`
+        return ret
     }
-    s.renderShape = function(pts){
+
+    s.randomiseAngle = function(){
+        return Math.floor(s.random(4)) * (s.PI/2)
+    }
+
+    s.drawPoints = function(offset, pts){
         s.push()
-        s.noFill()
-        s.stroke(127)
-        s.beginShape()
-        pts.forEach(pt => {
-            s.vertex(pt.x, pt.y)
-        })
-        s.endShape(s.CLOSE)
+            s.fill(220)
+            s.stroke(0, 127)
+            s.strokeWeight(2)
+            s.beginShape()
+            pts.forEach(pt => s.vertex(pt.x, pt.y))
+            s.endShape(s.CLOSE)
+        s.pop()
+    }
+
+    s.drawLabels = function(ls){
+        s.push()
+            s.noFill()
+            s.stroke(0, 127)
+            s.strokeWeight(2)
+            s.line(ls.base.x1, ls.base.y1, ls.base.x2, ls.base.y2)
+            s.line(ls.height.x1, ls.height.y1, ls.height.x2, ls.height.y2)
+        s.pop()
+        s.push()
+            s.textSize(12)
+            s.textAlign(s.CENTER, s.CENTER)
+            s.rectMode(s.CENTER)
+            const basetw = s.textWidth(ls.base.label) + 8
+            const heighttw = s.textWidth(ls.height.label)
+            //draw base label
+            s.push()
+                s.translate(ls.base.tx, ls.base.y1)
+                s.rotate(-theta)
+                s.fill(255)
+                s.noStroke()
+                s.rect(0, 0, basetw, 20)
+                s.noStroke()
+                s.fill(0)
+                s.text(ls.base.label, 0, 0)
+            s.pop()
+            //draw height label
+            s.push()
+                s.translate(ls.height.x1, ls.height.ty)
+                s.rotate(-theta)
+                s.fill(255)
+                s.noStroke()
+                s.rect(0, 0, heighttw + 6, 20)
+                // s.rect(ls.height.x1 - (heighttw / 2), ls.height.ty - 2, heighttw, 20)
+                s.noStroke()
+                s.fill(0)
+                s.text(ls.height.label, 0, 0)
+            s.pop()
+        s.pop()
+    }
+
+    s.setup = function(){
+        const cnv = s.createCanvas(300, 300)
+        maxSize = s.width - (padding * 2)
+        s.init()
+    }
+
+    s.draw = function(){
+        s.push()
+        s.background(255)
+        s.translate(s.width/2, s.height/2)
+        s.rotate(theta)
+        s.translate(-s.width/2, -s.height/2)
+        s.drawLabels(labels)
+        s.drawPoints(padding, points)
         s.pop()
     }
 }
@@ -150,6 +152,6 @@ export default {
 <style lang="scss" scoped>
     .geo-question{
         font-size: 1.6em;
-        height: 300px;
+        // height: 300px;
     }
 </style>

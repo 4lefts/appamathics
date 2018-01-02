@@ -125,7 +125,7 @@ export default {
                 }
             ]
             //use refs to update triangle component
-            this.$refs.triangle.p5.initPoints()
+            this.$refs.triangle.p5.init()
         }
     },
     mounted: function(){
