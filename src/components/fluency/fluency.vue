@@ -47,8 +47,9 @@
                             </span>
                             <span v-else>{{q.a}}</span>
                             <span>{{q.op}}</span>
+                            <span v-if="i === 3">{{q.a.denominator * q.b}}</span> <!-- question 4 needs to be an int multiple of denominator -->
                             <span 
-                            v-if="q.b.hasOwnProperty('numerator')"
+                            v-else-if="q.b.hasOwnProperty('numerator')"
                             class="frac">
                                 <span class="numerator">{{q.b.numerator}}</span>
                                 <span class="line">/</span>
@@ -105,7 +106,7 @@ export default {
                 },
                 {
                     a: makeProperFraction(10),
-                    b: `${randomInt(10, 50) * 10}`,
+                    b: `${randomInt(10, 50)}`,
                     op: 'of'
                 },
                 {
