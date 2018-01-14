@@ -34,15 +34,19 @@
         <div class="control-buttons">
             <button 
             v-on:click="go"
-            v-if="isPaused || !isRunning" 
+            v-if="!isRunning" 
             class="start-button">Go</button>
+            <button 
+            v-on:click="resume"
+            v-else-if="isPaused" 
+            class="start-button">Resume</button>
             <button 
             v-on:click="pause"
             v-else 
             class="pause-button">Pause</button>
             <button 
             v-on:click="reset"
-            class="reset-button">Reset</button>
+            class="reset-button">Stop</button>
        </div>
   </div>
 </template>
@@ -67,7 +71,6 @@ export default {
     methods: {
         go: function(){
             this.isRunning = true
-            this.isPaused = false
             const i = setInterval(() => {
                 if(this.isRunning){
                     this.state += 1
@@ -79,6 +82,9 @@ export default {
         pause: function(){
             this.pausedState = this.state
             this.isPaused = true
+        },
+        resume: function(){
+            this.isPaused = false
         },
         reset: function(){
             this.isRunning = false
