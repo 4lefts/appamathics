@@ -111,7 +111,7 @@ export default {
                 },
                 {
                     a: `${randomInt(1, 20) * 5}%`,
-                    b: `${randomInt(10, 50) * 10}`,
+                    b: `${randomInt(10, 30) * 20}`,
                     op: 'of'
                 },
                 {
