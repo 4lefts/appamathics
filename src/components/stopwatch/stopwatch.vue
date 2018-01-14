@@ -10,38 +10,36 @@
         <div class="info-boxes-container">
             <transition name="slide">
                 <div class="settings" v-if="showSettings">
-                    <h3>Timer Length</h3>
-                    <label for="minutes-input">Minutes</label>
-                    <input 
-                    type="number"
-                    name="minutes-input"
-                    v-model.number="minutesInput" 
-                    min="0" max="60" value="0">
-                    <label for="seconds-input">Seconds</label>
-                    <input 
-                    type="number" 
-                    name="seconds-input" 
-                    v-model.number="secondsInput"
-                    min="0" max="59" value="5">
+                    <h3>Stopwatch Speed... ?</h3>
+                    <p>Some kind of range slider will be here. Elastic time anyone?</p>
                 </div>
             </transition>
             <transition name="slide">
                 <div v-if="showAbout" class="about-info">
-                    <h3>A Timer</h3>
-                    <p><em>"If you can fill the unforgiving minute<br>With sixty seconds worth of distance run,<br>Yours is the Earth and everything that’s in it..."</em></p>
+                    <h3>A Stopwatch</h3>
+                    <p>Press to go and pause.</p>
                 </div>
             </transition>
         </div>
-        <div id="countdown" v-bind:class="{running: isRunning}">{{countdown | parseTime}}</div>
+        <div 
+            id="countdown"
+            v-if="isPaused"
+            v-bind:class="{running: isRunning}">{{pausedState | parseTime}}
+        </div>
+        <div 
+            id="countdown"
+            v-else
+            v-bind:class="{running: isRunning}">{{state | parseTime}}
+        </div>
         <div class="control-buttons">
             <button 
             v-on:click="go"
-            v-if="!isRunning" 
+            v-if="isPaused || !isRunning" 
             class="start-button">Go</button>
             <button 
-            v-on:click="stop"
+            v-on:click="pause"
             v-else 
-            class="stop-button">Pause</button>
+            class="pause-button">Pause</button>
             <button 
             v-on:click="reset"
             class="reset-button">Reset</button>
@@ -57,68 +55,53 @@ export default {
     },
     data: function(){
        return {
-            title: 'Timer',
+            title: 'Stopwatch',
             showSettings: false,
             showAbout: false,
-            minutesInput: 1,
-            secondsInput: 0,
             isRunning: false,
-            countdown: 0,
+            isPaused: false,
+            state: 0,
+            pausedState: 0,
         }
     },
     methods: {
         go: function(){
             this.isRunning = true
-            console.log(this.countdown)
+            this.isPaused = false
             const i = setInterval(() => {
                 if(this.isRunning){
-                    if(this.countdown > 0){
-                        this.countdown--
-                    } else {
-                        setTimeout(() => {
-                            this.isRunning = false
-                            this.countdown = this.initialSeconds
-                        }, 2000)
-                    }
+                    this.state += 1
                 } else {
                     clearInterval(i)
                 }
-            } , 1000)
+            } , 10)
         },
-        stop: function(){
-            this.isRunning = false
+        pause: function(){
+            this.pausedState = this.state
+            this.isPaused = true
         },
         reset: function(){
-            this.countdown = this.initialSeconds
-        }
-    },
-    watch:{
-        minutesInput: function(){
-            this.countdown = this.initialSeconds
-        },
-        secondsInput: function(){
-            this.countdown = this.initialSeconds
+            this.isRunning = false
+            this.isPaused = false
+            this.state = 0
         }
     },
     filters: {
-        //convert seconds (number) into mm:ss string
+        //convert number into mm:ss:ms string
         parseTime: function(t){
-            const m = Math.floor(t/60)
-            const s = t % 60
+            const m = Math.floor(t/6000) % 99
             const mStr = m > 9 ? m.toString() : '0' + m.toString()
+            const s = Math.floor(t/100) % 60
             const sStr = s > 9 ? s.toString() : '0' + s.toString()
-            return `${mStr}:${sStr}`
+            const ms = t % 100
+            const msStr = ms > 9 ? ms.toString() : '0' + ms.toString()
+            return `${mStr}:${sStr}:${msStr}`
         }
     },
     computed: {
         initialSeconds: function(){
             return (this.minutesInput * 60) + this.secondsInput
         },
-    },
-    created: function(){
-        this.countdown = this.initialSeconds
-        console.log(this.countdown)
-        console.log(typeof(this.countdown))
     }
 }
 </script>
@@ -126,7 +109,7 @@ export default {
 <style lang="scss">
     @import '../../base.scss';
     #countdown{
-        font-size: 30vmin;
+        font-size: 20vmin;
         text-align: center;
         @include text-card(2);
         color: $light;
@@ -149,7 +132,7 @@ export default {
             @include card(4, $primary);
         }
     }
-    .stop-button{
+    .pause-button{
         @include icon-button(80px);
         @include card(2, $accent);
         &:hover, &:focus{
@@ -169,7 +152,7 @@ export default {
                 @include card(4, $primary);
             }
         }
-        .stop-button{
+        .pause-button{
             @include icon-button(100px);
             @include card(2, $accent);
             &:hover, &:focus{
