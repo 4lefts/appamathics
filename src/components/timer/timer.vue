@@ -123,7 +123,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import '../../base.scss';
     #countdown{
         font-size: 30vmin;
