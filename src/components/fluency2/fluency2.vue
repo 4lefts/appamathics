@@ -36,6 +36,7 @@
                         <div class="print-header">
                             <h2>Fluency Practice</h2>
                         </div>
+                        <geometryQuestion ref="angle"></geometryQuestion>
                         <div class="question" v-for="(q, i) in questionsData">
                             <span>{{i + 1}}.</span>
                             <span 
@@ -44,6 +45,10 @@
                                 <span class="numerator">{{q.a.numerator}}</span>
                                 <span class="line">/</span>
                                 <span class="denominator">{{q.a.denominator}}</span>
+                            </span>
+                            <span
+                            v-else-if="q.a.hasOwnProperty('base')">
+                            {{q.a.base}}<sup>{{q.a.exp}}</sup>
                             </span>
                             <span v-else>{{q.a}}</span>
                             <span>{{q.op}}</span>
@@ -55,11 +60,14 @@
                                 <span class="line">/</span>
                                 <span class="denominator">{{q.b.denominator}}</span>
                             </span>
+                            <span
+                            v-else-if="q.b.hasOwnProperty('base')">
+                            {{q.b.base}}<sup>{{q.b.exp}}</sup>
+                            </span>
                             <span v-else>{{q.b}}</span>
                             <span>=</span>
                             <span class="answer"></span>
                         </div>
-                        <geometryQuestion ref="triangle"></geometryQuestion>
                     </div>
                 </div>
             </div>
@@ -80,10 +88,10 @@ export default {
     },
     data: function(){
         return {
-            title: 'Fluency Sheets',
+            title: 'Fluency Sheets, Set 2',
             showSettings: false,
             showAbout: false,
-            questionsData: []
+            questionsData: [],
         }
     },
     methods: {
@@ -96,7 +104,7 @@ export default {
                 },
                 {
                     a: makeProperFraction(10),
-                    b: randomInt(2, 10),
+                    b: makeProperFraction(10),
                     op: String.fromCharCode(215)
                 },
                 {
@@ -106,27 +114,32 @@ export default {
                 },
                 {
                     a: makeProperFraction(10),
-                    b: `${randomInt(10, 50)}`,
-                    op: 'of'
+                    b: randomInt(10, 50), //this is multiplied above so that it's a multiple of the denominator
+                    op: String.fromCharCode(215)
+                },
+                {
+                    a: makePower(randomInt(2, 10)),
+                    b: makePower(randomInt(2, 10)),
+                    op: (Math.random() > 0.5 ? '+' : '-')
                 },
                 {
                     a: `${randomInt(1, 20) * 5}%`,
                     b: `${randomInt(10, 30) * 20}`,
-                    op: 'of'
+                    op: String.fromCharCode(215)
                 },
                 {
-                    a: randomInt(200, 500),
-                    b: randomInt(5, 10),
+                    a: randomInt(200, 800),
+                    b: randomInt(10, 20),
                     op: String.fromCharCode(247)
                 },
                 {
-                    a: randomInt(1000, 5000),
-                    b: randomInt(10, 30),
+                    a:'cuboid',
+                    b: 'volume',
                     op: String.fromCharCode(215)
                 }
             ]
             //use refs to update triangle component
-            this.$refs.triangle.p5.init()
+            this.$refs.angle.p5.init()
         }
     },
     mounted: function(){
@@ -140,6 +153,13 @@ function makeProperFraction(lim){
     return {
         numerator,
         denominator
+    }
+}
+
+function makePower(n){
+    return {
+        base: n,
+        exp: (Math.random > 0.5 ? 2 : 3)
     }
 }
 
@@ -210,6 +230,9 @@ function randomInt(lo, hi){
         }
         .frac > span.line{
             display: none;
+        }
+        sup{
+            font-size: 0.5em;
         }
     }
 
