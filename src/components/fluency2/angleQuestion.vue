@@ -1,5 +1,5 @@
 <template>
-    <div class="geo-question">1. What are the angles 'a' and 'b'?
+    <div class="geo-question">7. What are the angles 'a' and 'b'?
         <div id="shape-container"></div>
     </div>
 </template>
@@ -8,11 +8,6 @@
 import p5 from 'p5'
 const shape = function(s){
     
-    let maxSize
-    let padding = 40
-    let points = []
-    let labels = {}
-    let minX = 0
     let angle_a
     let rotation
 
@@ -58,6 +53,7 @@ const shape = function(s){
             s.fill(180, 100)
             s.arc(0, 0, 100, 100, 0, s.PI)
             s.stroke(0)
+            s.strokeCap(s.PROJECT)
             s.strokeWeight(2)
             s.line(-s.width/2, 0, s.width/2, 0)
             s.line(0, 0, Math.cos(angle_a) * s.width/2, Math.sin(angle_a) * s.height/2)

@@ -36,7 +36,6 @@
                         <div class="print-header">
                             <h2>Fluency Practice</h2>
                         </div>
-                        <geometryQuestion ref="angle"></geometryQuestion>
                         <div class="question" v-for="(q, i) in questionsData">
                             <span>{{i + 1}}.</span>
                             <span 
@@ -47,12 +46,21 @@
                                 <span class="denominator">{{q.a.denominator}}</span>
                             </span>
                             <span
+                            v-else-if="q.a.mixed">
+                                <span>{{q.a.number}}</span>
+                                <span class="frac">
+                                    <span class="numerator">{{q.a.frac.numerator}}</span>
+                                    <span class="line">/</span>
+                                    <span class="denominator">{{q.a.frac.denominator}}</span>
+                                </span>
+                            </span>
+                            <span
                             v-else-if="q.a.hasOwnProperty('base')">
                             {{q.a.base}}<sup>{{q.a.exp}}</sup>
                             </span>
                             <span v-else>{{q.a}}</span>
                             <span>{{q.op}}</span>
-                            <span v-if="i === 3">{{q.a.denominator * q.b}}</span> <!-- question 4 needs to be an int multiple of denominator -->
+                            <span v-if="i === 2">{{q.a.denominator * q.b}}</span> <!-- question 3 needs to be an int multiple of denominator -->
                             <span 
                             v-else-if="q.b.hasOwnProperty('numerator')"
                             class="frac">
@@ -68,6 +76,8 @@
                             <span>=</span>
                             <span class="answer"></span>
                         </div>
+                        <angleQuestion ref="angle"></angleQuestion>
+                        <cuboidQuestion ref="cuboid"></cuboidQuestion>
                     </div>
                 </div>
             </div>
@@ -78,13 +88,15 @@
 <script>
 import top from '../top.vue'
 import printButton from '../general/printButton.vue'
-import geometryQuestion from './geometryQuestion.vue'
+import cuboidQuestion from './cuboidQuestion.vue'
+import angleQuestion from './angleQuestion.vue'
 
 export default {
     components: {
         top,
         printButton,
-        geometryQuestion
+        cuboidQuestion,
+        angleQuestion
     },
     data: function(){
         return {
@@ -97,8 +109,12 @@ export default {
     methods: {
         generateQuestions: function(){
             this.questionsData = [
-                {
-                    a: makeProperFraction(10),
+                { 
+                    a: {
+                        mixed: true,
+                        number: randomInt(1,6),
+                        frac: makeProperFraction(10),
+                    },
                     b: makeProperFraction(10),
                     op: '+'
                 },
@@ -106,11 +122,6 @@ export default {
                     a: makeProperFraction(10),
                     b: makeProperFraction(10),
                     op: String.fromCharCode(215)
-                },
-                {
-                    a: makeProperFraction(10),
-                    b: randomInt(2, 10),
-                    op: String.fromCharCode(247)
                 },
                 {
                     a: makeProperFraction(10),
@@ -131,11 +142,6 @@ export default {
                     a: randomInt(200, 800),
                     b: randomInt(10, 20),
                     op: String.fromCharCode(247)
-                },
-                {
-                    a:'cuboid',
-                    b: 'volume',
-                    op: String.fromCharCode(215)
                 }
             ]
             //use refs to update triangle component
