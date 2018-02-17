@@ -12,7 +12,7 @@ const shape = function(s){
     let rotation
 
     s.init = function(){
-        angle_a = s.random(0.2, s.PI - 0.2)
+        angle_a = s.random(0.4, s.PI - 0.4)
         rotation = s.random(s.TWO_PI)
     }
 
@@ -23,14 +23,14 @@ const shape = function(s){
             s.textSize(18)
             s.push()
                 s.rotate(theta/2)
-                s.translate(40, 0)
+                s.translate(30, 0)
                 s.rotate((-theta/2) - rotation) //undo rotation
                 s.translate(0, 6)
                 s.text('b', 0, 0)
             s.pop()
             s.push()
                 s.rotate(theta + ((s.PI - theta) / 2))
-                s.translate(40, 0)
+                s.translate(30, 0)
                 s.rotate((-(theta + ((s.PI - theta) / 2))) - rotation) //undo
                 s.translate(0, 6)
                 s.text('a', 0, 0)

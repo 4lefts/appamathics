@@ -144,8 +144,11 @@ export default {
                     op: String.fromCharCode(247)
                 }
             ]
-            //use refs to update triangle component
+            //use refs to update angle component
             this.$refs.angle.p5.init()
+            
+            //use refs to update cuboid component
+            this.$refs.cuboid.p5.init()
         }
     },
     mounted: function(){
@@ -248,11 +251,12 @@ function randomInt(lo, hi){
             display: none;
         }
         .print-header{
-            display: block;
+            display: inline-block;
             border-bottom: 1px solid $text;
             text-transform: uppercase;
         }
         .sheet-container{
+            font-size: 12px;
             width: $printSz;
             margin: auto;
         }
