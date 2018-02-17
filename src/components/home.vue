@@ -152,16 +152,14 @@ header.home-header{
 
 .card-grid{
   margin: $gutter;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  flex-flow: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: $gutter;
   a{
     text-decoration: none;
     color: $text;
     width: 100%;
-    margin: $gutter 0 0 0;
+    display: block;
     box-sizing: border-box;
     border-radius: 2px;
     @include card(1);
@@ -188,17 +186,17 @@ header.home-header{
       }
     }
   }
-  @media screen and (min-width: 540px) {
-    flex-direction: row;
-    a{
-      width: 49%;
-    }
-  }
-  @media screen and (min-width: 720px) {
-    flex-direction: row;
-    a{
-      width: 24%;
-    }
-  }
+  // @media screen and (min-width: 540px) {
+  //   flex-direction: row;
+  //   a{
+  //     width: 49%;
+  //   }
+  // }
+  // @media screen and (min-width: 720px) {
+  //   flex-direction: row;
+  //   a{
+  //     width: 24%;
+  //   }
+  // }
 }
 </style>

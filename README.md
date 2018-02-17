@@ -7,6 +7,12 @@
 - Bars for addition/subtraction/inverse/fractions/ratio
 - Geometry apps - triangle, parallelogram angles, areas and perimters. Perpendicular lines.
 
+## to do:
+- add footer
+- improve stopwatch and timer apps to use system time rather than relying on setInteral()
+- differentiate fluency sheets
+- tweek tables sheet to only allow customisation of one axis
+
 ## Build Setup
 
 ``` bash
