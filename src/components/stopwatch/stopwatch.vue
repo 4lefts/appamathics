@@ -66,14 +66,16 @@ export default {
             isPaused: false,
             state: 0,
             pausedState: 0,
+            start: 0,
         }
     },
     methods: {
         go: function(){
+            this.start = Date.now()
             this.isRunning = true
             const i = setInterval(() => {
                 if(this.isRunning){
-                    this.state += 1
+                    this.state = Date.now() - this.start
                 } else {
                     clearInterval(i)
                 }
@@ -95,12 +97,12 @@ export default {
     filters: {
         //convert number into mm:ss:ms string
         parseTime: function(t){
-            const m = Math.floor(t/6000) % 99
+            const m = Math.floor(t/60000) % 99
             const mStr = m > 9 ? m.toString() : '0' + m.toString()
-            const s = Math.floor(t/100) % 60
-            const sStr = s > 9 ? s.toString() : '0' + s.toString()
-            const ms = t % 100
-            const msStr = ms > 9 ? ms.toString() : '0' + ms.toString()
+            const s = Math.floor(t/1000) % 60
+            const sStr = `${s.toString().padStart(2, '0')}`
+            const ms = t % 1000
+            const msStr = `${ms.toString().slice(0, 2).padStart(2, '0')}`
             return `${mStr}:${sStr}:${msStr}`
         }
     },

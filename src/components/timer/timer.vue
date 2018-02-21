@@ -64,31 +64,34 @@ export default {
             secondsInput: 0,
             isRunning: false,
             countdown: 0,
+            end: 0,
         }
     },
     methods: {
         go: function(){
             this.isRunning = true
-            console.log(this.countdown)
+            this.end = Date.now() + this.initialSeconds * 1000 //in ms
             const i = setInterval(() => {
                 if(this.isRunning){
-                    if(this.countdown > 0){
-                        this.countdown--
+                    if(Date.now() < this.end){
+                        this.countdown = Math.floor((this.end - Date.now()) / 1000)
+                        console.log(this.countdown)
                     } else {
                         setTimeout(() => {
                             this.isRunning = false
                             this.countdown = this.initialSeconds
-                        }, 2000)
+                        }, 1000)
                     }
                 } else {
                     clearInterval(i)
                 }
-            } , 1000)
+            }, 100)
         },
         stop: function(){
             this.isRunning = false
         },
         reset: function(){
+            this.end = Date.now() + this.initialSeconds * 1000 //in ms
             this.countdown = this.initialSeconds
         }
     },
@@ -117,8 +120,6 @@ export default {
     },
     created: function(){
         this.countdown = this.initialSeconds
-        console.log(this.countdown)
-        console.log(typeof(this.countdown))
     }
 }
 </script>
