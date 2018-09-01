@@ -9,7 +9,7 @@
 
 ## to do:
 - add footer
-- improve stopwatch and timer apps to use system time rather than relying on setInteral()
+- improve stopwatch and timer apps to use system time rather than relying on setInterval()
 - differentiate fluency sheets
 - tweek tables sheet to only allow customisation of one axis
 

@@ -21,12 +21,14 @@
                     <input 
                     type="number"
                     name="numberOne"
-                    v-model.number="numberOne">
+                    v-model.number="numberOne"
+                    v-on:change="initNumbers">
                     <label for="numberTwo">...and...</label>
                     <input 
                     type="number" 
                     name="numberTwo" 
-                    v-model.number="numberTwo">
+                    v-model.number="numberTwo"
+                    v-on:change="initNumbers">
                     <label for="decimalPlaces">Decimal Places:</label>
                     <input 
                     type="number" 
@@ -39,16 +41,23 @@
                     type="number" 
                     name="numberOfNumbers" 
                     min="1" 
-                    max="10" 
+                    v-bind:max="Math.abs(numberOne - numberTwo)" 
                     v-model.number="numberOfNumbers"
                     v-on:change="initNumbers">
-                    <p>(Choosing {{numberOfNumbers}} numbers between {{this.bounds.lower}} and {{this.bounds.upper}}, to {{decimalPlaces}} decimal places.)</p>
+                    <label for="unique">Make numbers unique?
+                        <input 
+                        type="checkbox"
+                        name="unique"
+                        class="unique-checkbox"
+                        v-model="unique">
+                    </label>
+                    <p>(Choosing {{numberOfNumbers}} number<span v-if="numberOfNumbers > 1">s</span> between {{this.bounds.lower}} and {{this.bounds.upper}}, to {{decimalPlaces}} decimal places.)</p>
                 </div>
             </transition>
         </div>
         
         <div class="numbers-container">
-            <div v-for="number in randomNumbers" class="number-output">{{number}}</div>
+            <div v-for="(number, idx) in randomNumbers" class="number-output" v-bind:key="idx">{{number}}</div>
         </div>
         <button v-on:click="go" class="go-button">Go</button>
 
@@ -71,16 +80,32 @@ export default {
             decimalPlaces: 0,
             numberOfNumbers: 3,
             randomNumbers: [],
+            unique: false,
         }
     },
     methods: {
         makeNumbers: function(){
             this.randomNumbers = []
-            for(let i = this.numberOfNumbers; i > 0; i--){
-                this.randomNumbers[i - 1] = ((Math.random() * (this.bounds.upper - this.bounds.lower)) + this.bounds.lower).toFixed(this.decimalPlaces)
+            if(!this.unique){
+                for(let i = this.numberOfNumbers; i > 0; i--){
+                    this.randomNumbers[i - 1] = this.chooseBoundedRandomNumber()
+                }
+            } else {
+                for(let i = this.numberOfNumbers; i > 0; i--){
+                    let tempN = this.chooseBoundedRandomNumber()
+                    while(this.randomNumbers.includes(tempN)){
+                        tempN = this.chooseBoundedRandomNumber()
+                    }
+                    this.randomNumbers[i - 1] = tempN
+                }
             }
+
+        },
+        chooseBoundedRandomNumber(){
+            return ((Math.random() * (this.bounds.upper - this.bounds.lower)) + this.bounds.lower).toFixed(this.decimalPlaces)
         },
         go: function(){
+            this.initNumbers()
             let t = 0
             let r = setInterval(() => {
                 if(t === 10){
@@ -91,9 +116,15 @@ export default {
                 }
             }, 50)
         },
+        clampNumberOfNumbers(){
+            const range = Math.abs(this.numberOne - this.numberTwo)
+            if(this.numberOfNumbers < 1) this.numberOfNumbers = 1
+            this.numberOfNumbers = this.numberOfNumbers > range ? range : this.numberOfNumbers
+        },
         initNumbers: function(){
+            this.clampNumberOfNumbers()
             this.randomNumbers = Array(this.numberOfNumbers).fill('?')
-        }
+        },
     },
     computed: {
         bounds: function(){
@@ -113,7 +144,8 @@ export default {
                     upper: this.numberOne + 1
                 }
             }
-        }
+        },
+        
     },
     created: function(){
         this.initNumbers()
@@ -143,6 +175,14 @@ export default {
                 @include card(4, $accent);
             }
         }
+    }
+
+    .unique-checkbox{
+        display: inline-block;
+        position: relative;
+        width: auto;
+        vertical-align: bottom;
+        margin-left: 8px;
     }
 
     .numbers-container{
