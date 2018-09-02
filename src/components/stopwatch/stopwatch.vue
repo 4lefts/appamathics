@@ -43,10 +43,10 @@
             <button 
             v-on:click="pause"
             v-else 
-            class="pause-button">Pause</button>
+            class="pause-button">Stop</button>
             <button 
             v-on:click="reset"
-            class="reset-button">Stop</button>
+            class="reset-button">Reset</button>
        </div>
   </div>
 </template>
