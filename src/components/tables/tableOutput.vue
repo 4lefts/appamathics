@@ -2,6 +2,7 @@
     <div class="sheet-container">
         <div class="sheet-inner">
             <div class="controls-container">
+                <button id="re-init-button" v-on:click="$emit('re-init')"><img src="../../assets/icons/refresh.svg" alt="re-initialize button"></button>
                 <printButton></printButton>
             </div>
             <div class="sheet-header">
@@ -13,12 +14,24 @@
             </div>
             <table>
                 <tr>
-                    <th></th>
-                    <th v-for="colHeader in colHeaders">{{colHeader}}</th>
+                    <td><div class="content">&times;</div></td>
+                    <td 
+                        v-for="colHeader in colHeaders"
+                        v-bind:key="colHeader">
+                            <div class="content">{{colHeader}}</div>
+                        </td>
                 </tr>
-                <tr v-for="rowHeader in rowHeaders">
-                    <th>{{rowHeader}}</th>
-                    <td v-for="_ in colHeaders"></td>
+                <tr 
+                    v-for="rowHeader in rowHeaders"
+                    v-bind:key="rowHeader">
+                        <td>
+                            <div class="content">{{rowHeader}}</div>
+                        </td>
+                    <td 
+                        v-for="colHeader in colHeaders"
+                        v-bind:key="colHeader">
+                        <div class="content"></div>
+                    </td>
                 </tr>
             </table>
             <div class="sheet-footer">
@@ -46,6 +59,10 @@ export default {
     @import '../../base.scss';
     @media screen{   
         .sheet-container{
+            #re-init-button{
+                @include icon-button(50px, $accent);
+                margin-right: $gutter;
+            }
             margin: 0 $gutter $gutter $gutter;
             .sheet-inner{
                 @include container();
@@ -71,41 +88,31 @@ export default {
                 table {
                     margin: 30px auto;
                     box-sizing: border-box;
-                    width: 320px - ($gutter * 4);
-                    height: 320px - ($gutter * 4);
+                    width: 100%;
                     border-collapse: collapse;
                     table-layout: fixed;
-                    td, th {
-                        font-size: 0.8rem;
+                    td{
+                        width: 7.69230769231%;
+                        position: relative;
+                        font-size: calc(1vmin + 0.4rem);
                         text-align: center;
                         vertical-align: middle;
                         border: 1px solid $text;
-                    }
-                }
-            }
-        }
-    }
-    @media screen and (min-width: 540px){
-        .sheet-container{
-            .sheet-inner{
-                table{
-                    width: 540px - ($gutter * 4);
-                    height: 540px - ($gutter * 4);
-                    td, th{
-                        font-size: 1rem;
-                    }
-                }
-            }
-        }
-    }
-     @media screen and (min-width: 720px){
-        .sheet-container{
-            .sheet-inner{
-                table{
-                    width: 640px - ($gutter * 2);
-                    height: 640px - ($gutter * 2);
-                    td, th{
-                        font-size: 1.3rem;
+                        &:after{
+                            content: '';
+                            display: block;
+                            margin-top: 100%;
+                        }
+                        .content{
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
                     }
                 }
             }
@@ -134,15 +141,30 @@ export default {
             margin: 30px 0;
             box-sizing: border-box;
             width: $printSz;
-            height: $printSz;
             border-collapse: collapse;
             table-layout: fixed;
-            td, th {
+            td{
+                width: 7.69230769231%;
+                position: relative;
+                font-size: calc(1vmin + 0.4rem);
                 text-align: center;
-                font-size: 1.4rem;
                 vertical-align: middle;
-                font-weight: 300;
                 border: 1px solid $text;
+                &:after{
+                    content: '';
+                    display: block;
+                    margin-top: 100%;
+                }
+                .content{
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
         }
     }

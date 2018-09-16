@@ -24,7 +24,8 @@
     </div>
     <tableOutput
     v-bind:colHeaders="colHeaders"
-    v-bind:rowHeaders="rowHeaders">
+    v-bind:rowHeaders="rowHeaders"
+    v-on:re-init="generateHeaders(choicesStates)">
     </tableOutput>
   </div>
 </template>
@@ -67,15 +68,17 @@ export default {
     generateHeaders: function(choices){
       this.colHeaders = []
       this.rowHeaders = []
-      let colChoices = Object.keys(choices).filter(val => choices[val])
-      let rowChoices = colChoices.slice()
-      const n = colChoices.length
-      for (let i = 0; i < n; i++){
+      let colChoices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      for(let i = 12; i > 0; i--){
         let x = Math.floor(Math.random() * colChoices.length)
-        let y = Math.floor(Math.random() * colChoices.length)
         this.colHeaders.push(colChoices[x])
-        this.rowHeaders.push(rowChoices[y])
         colChoices.splice(x, 1)
+      }
+      let rowChoices = Object.keys(choices).filter(val => choices[val])
+      let n = rowChoices.length
+      for (let i = 0; i < n; i++){
+        let y = Math.floor(Math.random() * rowChoices.length)
+        this.rowHeaders.push(rowChoices[y])
         rowChoices.splice(y, 1)
       }
     }
